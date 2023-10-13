@@ -13,8 +13,8 @@ body {
 /* login */
 
 .brand-login {
-    background-image: url(img/login1.png);
-    background-size: contain;
+    background-image: url(img/authentication_bg.jpg);
+    background-size: cover;
     background-repeat: no-repeat;
 }
 

@@ -4,13 +4,10 @@ import "../../css/my.css";
 
 import { Link, Head } from "@inertiajs/react";
 
-export default function login() {
+export default function Login() {
     return (
         <>
-            <Head title="Login" />
-            {/* link(href="https://fonts.googleapis.com/css2?family=Poppins&display=swap", */}
-            {/* rel="stylesheet")  */}
-            {/* body */}
+            <Head title="Masuk" />
 
             <div
                 className="container-fluid d-flex justify-content-center align-items-center "

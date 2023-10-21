@@ -25,12 +25,16 @@ use Inertia\Inertia;
 //     ]);
 // });
 
-Route::get('/auten', function(){
-    return Inertia::render('Auten', ['canLogin' => Route::has('login'),
+Route::get('/masuk', function(){
+    return Inertia::render('TransactionHeader', ['canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
+});
+
+Route::get('/keranjang', function () {
+    return Inertia::render('Keranjang');
 });
 
 Route::get('/dashboard', function () {

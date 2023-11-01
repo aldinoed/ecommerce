@@ -26,7 +26,7 @@ use Inertia\Inertia;
 // });
 
 Route::get('/masuk', function(){
-    return Inertia::render('TransactionHeader', ['canLogin' => Route::has('login'),
+    return Inertia::render('Autentikasi', ['canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
@@ -34,7 +34,7 @@ Route::get('/masuk', function(){
 });
 
 Route::get('/keranjang', function () {
-    return Inertia::render('Keranjang');
+    return Inertia::render('Keranjang' );
 });
 
 Route::get('/dashboard', function () {

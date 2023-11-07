@@ -8,9 +8,9 @@ import { Link, Head } from "@inertiajs/react";
 export default function MainNav() {
     return (
         <>
-            <div className="container-fluid" style={{ minHeight: " 1000px" }}>
+            <div className="container-fluid border-bottom pb-4 pt-3">
                 <div className="row d-flex align-items-center justify-content-evenly">
-                    <div className="col-1">
+                    <div className="col-1 d-flex justify-content-center">
                         <img src="img/icon.png" alt="" />
                     </div>
                     <div className="col-1">
@@ -25,6 +25,28 @@ export default function MainNav() {
                             >
                                 Kategori
                             </button>
+                            <div className="row z-3">
+                                <div className="col">
+                                    <div
+                                        className="collapse multi-collapse"
+                                        id="multiCollapseExample1"
+                                    >
+                                        <div className="card card-body">
+                                            Halo
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col">
+                                    <div
+                                        className="collapse multi-collapse"
+                                        id="multiCollapseExample2"
+                                    >
+                                        <div className="card card-body">
+                                            Yoi
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div className="col-7 ">
@@ -73,24 +95,6 @@ export default function MainNav() {
                             </button>
                             <button className="btn btn-primary">Daftar</button>
                         </form>
-                    </div>
-                </div>
-                <div className="row z-3">
-                    <div className="col">
-                        <div
-                            className="collapse multi-collapse"
-                            id="multiCollapseExample1"
-                        >
-                            <div className="card card-body">Halo</div>
-                        </div>
-                    </div>
-                    <div className="col">
-                        <div
-                            className="collapse multi-collapse"
-                            id="multiCollapseExample2"
-                        >
-                            <div className="card card-body">Yoi</div>
-                        </div>
                     </div>
                 </div>
             </div>

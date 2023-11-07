@@ -15,7 +15,7 @@ export default function TransactionHeader() {
             </Head>
             <nav className="navbar bg-primary p-3 fixed-top shadow pb-2">
                 <div className="container text-white">
-                    <a className="navbar-brand" href="dashboard">
+                    <a className="navbar-brand" href="/">
                         <span class="material-symbols-outlined text-white">
                             arrow_back
                         </span>

@@ -115,9 +115,18 @@ nav ul.slide {
 }
 
 /* Global Style */
-.divider-section::after {
+/* .divider-section::after {
     content: "";
     display: block;
+    background-color: rgba(0, 0, 0, 0.6);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    bottom: 0;
+} */
+.href {
+    text-decoration: none;
+    color: black;
 }
 
 img {
@@ -137,6 +146,8 @@ img {
 .tombol {
     cursor: pointer;
 }
+
+/* MainNav */
 
 /* Responsive */
 /* @media screen and (max-width: 576px) { */

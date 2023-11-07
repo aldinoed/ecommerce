@@ -25,7 +25,7 @@ export default function Keranjang(namaProduk, harga, stok, namaBrand) {
             <TransactionHeader></TransactionHeader>
             <div className="cartBody container pt-5">
                 <div className="row" style={{ marginTop: "4%" }}>
-                    <h4 className="fw-bold">Keranjang</h4>
+                    <h4 className="fw-bold ps-4">Keranjang</h4>
                 </div>
                 <div className="row mt-4">
                     <div className="form-check">
@@ -53,7 +53,7 @@ export default function Keranjang(namaProduk, harga, stok, namaBrand) {
                                     value=""
                                     id="defaultCheck1"
                                 />
-                                &#160; Featured
+                                &#160; Brand
                             </div>
                             <div className="card-body">
                                 <div className="product-canvas p-1 bg-body-secondary rounded">
@@ -75,7 +75,7 @@ export default function Keranjang(namaProduk, harga, stok, namaBrand) {
                                             <div className="row">Rp. 15000</div>
                                         </div>
                                         <div className="col-3 d-flex align-items-end pb-2">
-                                            <span class="material-symbols-outlined tombol cart-button-hover">
+                                            <span class="material-symbols-outlined tombol cart-button-hover ">
                                                 delete
                                             </span>
                                             &#160;&#160;&#160;&#160;&#160;

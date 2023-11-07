@@ -24,6 +24,9 @@ use Inertia\Inertia;
 //         'phpVersion' => PHP_VERSION,
 //     ]);
 // });
+Route::get('/', function () {
+    return Inertia::render('Home');
+});
 
 Route::get('/masuk', function(){
     return Inertia::render('Autentikasi', ['canLogin' => Route::has('login'),

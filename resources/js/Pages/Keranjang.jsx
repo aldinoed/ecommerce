@@ -2,10 +2,16 @@ import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "../../css/app.css";
 import "../../css/my.css";
 
+import React, { useState } from "react";
+
 import { Link, Head } from "@inertiajs/react";
 import TransactionHeader from "@/Components/TransactionHeader";
 
 export default function Keranjang(namaProduk, harga, stok, namaBrand) {
+    const [amount, setAmount] = React.useState(1);
+    const addAmount = ()=> { setAmount(amount + 1) }
+    const reduceAmount = () => { if(amount > 1){ setAmount(amount - 1)} }
+    
     return (
         <>
             <Head title="keranjang">
@@ -79,14 +85,13 @@ export default function Keranjang(namaProduk, harga, stok, namaBrand) {
                                                 delete
                                             </span>
                                             &#160;&#160;&#160;&#160;&#160;
-                                            <span class="material-symbols-outlined tombol cart-button-hover">
+                                            <span onClick={reduceAmount} class="material-symbols-outlined tombol cart-button-hover">
                                                 do_not_disturb_on
                                             </span>
-                                            <span>
-                                                &#160;&#160;&#160; 1
-                                                &#160;&#160;&#160;
+                                            <span className="ms-4 me-4">
+                                                {amount}
                                             </span>
-                                            <span class="material-symbols-outlined tombol cart-button-hover">
+                                            <span onClick={addAmount} class="material-symbols-outlined tombol cart-button-hover">
                                                 add_circle
                                             </span>
                                         </div>

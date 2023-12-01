@@ -10,20 +10,23 @@ export default function Home() {
         <>
             <Head title="Compnet"></Head>
             <MainNav></MainNav>
-            <div className="container-fluid  p-5">
+            <div className="container-fluid pt-5">
                 <div className="row">
-                    <div className="col-3"></div>
-                    <div className="col-9">
+                    <div className="col-3 align-items-center d-flex flex-column justify-content-evenly">
+                        <img style={{minWidth:"46%"}} src="img/main1.png" alt="" />
+                        <img style={{minWidth:"49%"}} src="img/main2.png" alt="" />
+                    </div>
+                    <div className="col-8">
                         <div
                             id="carouselExampleRide"
-                            class="carousel slide"
-                            data-bs-ride="true"
+                            className="carousel slide"
+                            data-bs-ride="carousel"
                         >
-                            <div class="carousel-inner">
-                                <div class="carousel-item active">
+                            <div className="carousel-inner">
+                                <div className="carousel-item active">
                                     <img
                                         src="img/banner2.jpg"
-                                        class="rounded"
+                                        className="rounded"
                                         alt="..."
                                         style={{
                                             minWidth: "100%",
@@ -31,10 +34,10 @@ export default function Home() {
                                         }}
                                     />
                                 </div>
-                                <div class="carousel-item">
+                                <div className="carousel-item">
                                     <img
                                         src="img/banner3.jpg"
-                                        class="rounded"
+                                        className="rounded"
                                         alt="..."
                                         style={{
                                             minWidth: "100%",
@@ -42,37 +45,41 @@ export default function Home() {
                                         }}
                                     />
                                 </div>
-                                <div class="carousel-item">
+                                <div className="carousel-item">
                                     <img
-                                        src="..."
-                                        class="d-block w-100"
+                                        src="img/banner1.png"
+                                        className="d-block w-100"
                                         alt="..."
+                                        style={{
+                                            minWidth: "100%",
+                                            minHeight: "400px",
+                                        }}
                                     />
                                 </div>
                             </div>
                             <button
-                                class="carousel-control-prev"
+                                className="carousel-control-prev"
                                 type="button"
                                 data-bs-target="#carouselExampleRide"
                                 data-bs-slide="prev"
                             >
                                 <span
-                                    class="carousel-control-prev-icon"
+                                    className="carousel-control-prev-icon"
                                     aria-hidden="true"
                                 ></span>
-                                <span class="visually-hidden">Previous</span>
+                                <span className="visually-hidden">Previous</span>
                             </button>
                             <button
-                                class="carousel-control-next"
+                                className="carousel-control-next"
                                 type="button"
                                 data-bs-target="#carouselExampleRide"
                                 data-bs-slide="next"
                             >
                                 <span
-                                    class="carousel-control-next-icon"
+                                    className="carousel-control-next-icon"
                                     aria-hidden="true"
                                 ></span>
-                                <span class="visually-hidden">Next</span>
+                                <span className="visually-hidden">Next</span>
                             </button>
                         </div>
                     </div>

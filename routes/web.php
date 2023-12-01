@@ -28,7 +28,13 @@ use App\Http\Controllers\AdminController;
 Route::get('/', function () {
     return Inertia::render('Home');
 });
-Route::get('/admindashboard/userman', [AdminController::class,'userMan']);
+Route::get('/admin', function () {return Inertia::render('AdminHome');});
+Route::get('/admin/produk', function () {return Inertia::render('AdminHome');});
+Route::get('/admin/input-produk', function () {return Inertia::render('InputBarang');});
+Route::get('/admin/user', function () {return Inertia::render('AdminHome');});
+// Route::get('/admin/produk', [AdminController::class,'produkMan']);
+
+// Route::get('/admin/input', [AdminController::class,'produkMan']);
 
 Route::get('/masuk', function(){
     return Inertia::render('Autentikasi', ['canLogin' => Route::has('login'),

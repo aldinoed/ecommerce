@@ -5,6 +5,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,9 +26,6 @@ use App\Http\Controllers\AdminController;
 //         'phpVersion' => PHP_VERSION,
 //     ]);
 // });
-Route::get('/', function () {
-    return Inertia::render('Home');
-});
 Route::get('/admin', function () {return Inertia::render('AdminHome');});
 Route::get('/admin/produk', function () {return Inertia::render('AdminHome');});
 Route::get('/admin/input-produk', function () {return Inertia::render('InputBarang');});
@@ -44,6 +42,8 @@ Route::get('/masuk', function(){
     ]);
 });
 
+Route::get('/', [HomeController::class, 'home']);
+Route::get('/search', [HomeController::class, 'home']);
 Route::get('/keranjang', function () {
     return Inertia::render('Keranjang' );
 });

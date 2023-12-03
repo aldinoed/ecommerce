@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('subdistrict_id');
             $table->string('village_id');
             $table->text('detail_location');
+            $table->timestamps();
                     
             $table->foreign('user_id')->references('user_id')->on('users');
             $table->foreign('province_id')->references('province_id')->on('provinces');

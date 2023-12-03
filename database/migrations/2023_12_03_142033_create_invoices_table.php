@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('invoices', function (Blueprint $table) {
             $table->string('invoice_id')->primary;
             $table->string('order_id');
+            $table->timestamps();
         });
     }
 

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->text('description');
             $table->string('loyalty_id');
             $table->double('discount_amount');
+            $table->timestamps();
 
             $table->foreign('loyalty_id')->references('loyalty_id')->on('user_loyalties');
         });

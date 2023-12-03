@@ -15,6 +15,7 @@ return new class extends Migration
             $table->string('subdistrict_id')->primary();
             $table->string('subdistrict_name');
             $table->string('district_id');
+            $table->timestamps();
             $table->foreign('district_id')->references('district_id')->on('districts');
         });
     }

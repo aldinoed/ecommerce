@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('phone_number')->nullable();
             $table->enum('user_role', ['admin', 'customer']);
             $table->string('image_profile')->nullable();  
+            $table->timestamps();
             
             $table->foreign('loyalty_id')->references('loyalty_id')->on('user_loyalties');
         });

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->double('total');
             $table->string('waybill');
             $table->boolean('is_received');
+            $table->timestamps();
 
             $table->foreign('cart_id')->references('cart_id')->on('carts');
             $table->foreign('voucher_id')->references('voucher_id')->on('vouchers');

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->string('loyalty_id')->primary();
             $table->text('description');
             $table->integer('min_order');
+            $table->timestamps();
         });
     }
 

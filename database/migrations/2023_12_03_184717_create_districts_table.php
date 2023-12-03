@@ -15,6 +15,7 @@ return new class extends Migration
             $table->string('district_id')->primary();
             $table->string('district_name');
             $table->string('province_id');
+            $table->timestamps();
             $table->foreign('province_id')->references('province_id')->on('provinces');
         });
     }

@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('voucher', function (Blueprint $table) {
+        Schema::create('vouchers', function (Blueprint $table) {
             $table->string('voucher_id')->primary();
             $table->text('description');
             $table->string('loyalty_id');
             $table->double('discount_amount');
 
-            $table->foreign('loyalty_id')->references('loyalty_id')->on('user_loyalty');
+            $table->foreign('loyalty_id')->references('loyalty_id')->on('user_loyalties');
         });
     }
 
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('voucher');
+        Schema::dropIfExists('vouchers');
     }
 };

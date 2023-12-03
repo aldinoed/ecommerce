@@ -12,7 +12,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user', function (Blueprint $table) {
+        Schema::create('users', function (Blueprint $table) {
             $table->string('user_id')->primary();
             $table->string('username');
             $table->string('fullname');
@@ -22,7 +22,9 @@ return new class extends Migration
             $table->integer('amount_order');
             $table->string('phone_number')->nullable();
             $table->enum('user_role', ['admin', 'customer']);
-            $table->string('image_profile')->nullable();         
+            $table->string('image_profile')->nullable();  
+            
+            $table->foreign('loyalty_id')->references('loyalty_id')->on('user_loyalties');
         });
     }
 
@@ -31,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('user');
+        Schema::dropIfExists('users');
     }
 };

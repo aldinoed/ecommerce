@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('subdistrict', function (Blueprint $table) {
+        Schema::create('subdistricts', function (Blueprint $table) {
             $table->string('subdistrict_id')->primary();
             $table->string('subdistrict_name');
             $table->string('district_id');
-            $table->foreign('district_id')->references('district_id')->on('district');
+            $table->foreign('district_id')->references('district_id')->on('districts');
         });
     }
 
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('subdistrict');
+        Schema::dropIfExists('subdistricts');
     }
 };

@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cart', function (Blueprint $table) {
+        Schema::create('carts', function (Blueprint $table) {
             $table->string('cart_id')->primary();
             $table->string('user_id');
             $table->string('product_id');
             $table->integer('quantity');
             $table->double('total');
             $table->string('order_id')->nullable();
-            $table->foreign('user_id')->references('user_id')->on('user');
-            $table->foreign('product_id')->references('product_id')->on('product');
+            $table->foreign('user_id')->references('user_id')->on('users');
+            $table->foreign('product_id')->references('product_id')->on('products');
         });
     }
 

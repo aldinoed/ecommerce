@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_location', function (Blueprint $table) {
+        Schema::create('user_locations', function (Blueprint $table) {
             $table->string('location_id')->primary();
             $table->string('user_id');
             $table->string('location_name');
@@ -21,11 +21,11 @@ return new class extends Migration
             $table->string('village_id');
             $table->text('detail_location');
                     
-            $table->foreign('user_id')->references('user_id')->on('user');
-            $table->foreign('province_id')->references('province_id')->on('province');
-            $table->foreign('district_id')->references('district_id')->on('district');
-            $table->foreign('subdistrict_id')->references('subdistrict_id')->on('subdistrict');
-            $table->foreign('village_id')->references('village_id')->on('village');
+            $table->foreign('user_id')->references('user_id')->on('users');
+            $table->foreign('province_id')->references('province_id')->on('provinces');
+            $table->foreign('district_id')->references('district_id')->on('districts');
+            $table->foreign('subdistrict_id')->references('subdistrict_id')->on('subdistricts');
+            $table->foreign('village_id')->references('village_id')->on('villages');
         });
     }
 
@@ -34,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('user_location');
+        Schema::dropIfExists('user_locations');
     }
 };

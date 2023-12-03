@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('media_file');
             $table->string('product_id');
             $table->integer('media_sequence');
-            $table->foreign('product_id')->references('product_id')->on('product');
+            $table->foreign('product_id')->references('product_id')->on('products');
         });
     }
 

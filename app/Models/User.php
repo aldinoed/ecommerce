@@ -16,6 +16,9 @@ class User extends Model
     public function userLocations(){
         return $this->hasMany(UserLocation::class);
     }   
+    public function userLoyalties(){
+        return $this->belongsTo(UserLoyalty::class);
+    }   
     public function carts(){
         return $this->hasMany(Cart::class);
     }   

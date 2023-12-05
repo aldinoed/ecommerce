@@ -1,13 +1,20 @@
 import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "../../css/app.css";
 import "../../css/my.css";
+import Masuk from '../Components/Masuk';
+import Daftar from '../Components/Daftar';
 
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Link, Head } from "@inertiajs/react";
 
 export default function Login() {
     return (
         <>
-            <Head title="Masuk" />
+        <Router>
+            <Routes>
+                <Route path="/masuk" element={<Head title="Masuk" />}/>
+                <Route path="/daftar" element={<Head title="Daftar" />}/>
+            </Routes>
 
             <div
                 className="container-fluid d-flex justify-content-center align-items-center "
@@ -15,80 +22,27 @@ export default function Login() {
             >
                 <div
                     className="card rounded d-flex flex-row shadow rounded-4"
-                    style={{ border: "none", width: "50%", height: "65%" }}
+                    style={{ border: "none", width: "55%", height: "70%" }}
                 >
                     <div
                         className="brand-login col-sm-4 rounded-start-4"
                         style={{ width: "43%" }}
                     >
                         <h6>compnet</h6>
-                        <h2>Login</h2>
+                        
                     </div>
                     <div
-                        className="bg-white p-5 col-sm-6 rounded-4"
+                        className="bg-white p-4 col-sm-6 rounded-4"
                         style={{ width: "57%" }}
                     >
-                        <form
-                            method="POST"
-                            action="/login"
-                            className="mt-4 me-1"
-                        >
-                            <div className="mb-3">
-                                <label
-                                    className="form-label"
-                                    forhtml="exampleInputEmail1"
-                                >
-                                    Username
-                                </label>
-                                <input
-                                    id="exampleInputEmail1"
-                                    className="form-control"
-                                    type="email"
-                                    aria-describedby="emailHelp"
-                                    name="email-login"
-                                />
-                            </div>
-                            <div className="mb-3">
-                                <label
-                                    className="form-label"
-                                    forhtml="exampleInputPassword1"
-                                >
-                                    Password
-                                </label>
-                                <input
-                                    id="exampleInputPassword1"
-                                    className="form-control"
-                                    type="password"
-                                    name="password-login"
-                                />
-                            </div>
-                            {/* <div className="mb-3 form-check">
-                                <input
-                                    id="exampleCheck1"
-                                    className="form-check-input"
-                                    type="checkbox"
-                                />
-                                <label
-                                    className="form-check-label"
-                                    forhtml="exampleCheck1"
-                                >
-                                    Remember me
-                                </label>
-                            </div> */}
-                            <div className="d-flex justify-content-center">
-                                <button
-                                    className="btn btn-primary "
-                                    type="submit"
-                                >
-                                    Login
-                                </button>
-                            </div>
-                            <br />
-                            <span>Tidak bisa login? Hubungi</span>
-                            <a href="https://api.whatsapp.com/send?phone=6283811051466">
-                                Admin
-                            </a>
-                        </form>
+                        <Routes>
+                            <Route path="/masuk" element={<h2 className="text-center mb-5">Masuk</h2>}/>
+                            <Route path="/daftar" element={<h2 className="text-center">Daftar</h2>}/>
+                        </Routes>
+                        <Routes>
+                            <Route path="/masuk" element={<Masuk/>}></Route>
+                            <Route path="/daftar" element={<Daftar/>}></Route>
+                        </Routes>
                     </div>
                 </div>
             </div>
@@ -97,6 +51,7 @@ export default function Login() {
                 integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
                 crossOrigin="anonymous"
             />
+        </Router>
         </>
     );
 }

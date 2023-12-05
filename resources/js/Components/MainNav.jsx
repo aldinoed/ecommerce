@@ -8,7 +8,7 @@ import { Link, Head } from "@inertiajs/react";
 export default function MainNav() {
     return (
         <>
-            <div className="container-fluid border-bottom pb-4 pt-3">
+            <div className="container-fluid bg-white border-bottom pb-4 pt-3 shadow fixed-top">
                 <div className="row d-flex align-items-center justify-content-evenly">
                     <div className="col-1 d-flex justify-content-center">
                         <img src="img/icon.png" alt="" />
@@ -88,13 +88,11 @@ export default function MainNav() {
                             </svg>
                         </a>
                     </div>
-                    <div className="col-2 ">
-                        <form className="d-flex justify-content-evenly">
-                            <button className="btn border" formAction="/masuk">
-                                Masuk
-                            </button>
-                            <button className="btn btn-primary">Daftar</button>
-                        </form>
+                    <div className="col-2 d-flex justify-content-evenly">
+                        {/* <form className="d-flex justify-content-evenly"> */}
+                            <div className="btn border bg-white"><a href="/masuk" className="text-black">Masuk</a></div>
+                            <div className="btn bg-primary"><a href="/daftar" className="text-white">Daftar</a></div>
+                        {/* </form> */}
                     </div>
                 </div>
             </div>

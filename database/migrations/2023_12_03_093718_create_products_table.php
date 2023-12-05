@@ -16,10 +16,12 @@ return new class extends Migration
             $table->string('product_name');
             $table->text('description');
             $table->string('category_id');
+            $table->string('brand_id');
             $table->double('product_price');
             $table->integer('product_stock');
             $table->timestamps();
             $table->foreign('category_id')->references('category_id')->on('categories');
+            $table->foreign('brand_id')->references('brand_id')->on('product_brands');
         });
     }
 

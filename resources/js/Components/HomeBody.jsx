@@ -2,13 +2,14 @@ import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "../../css/app.css";
 import "../../css/my.css";
 
+import { Link, Head } from "@inertiajs/react";
 
 export default function HomeBody(){
     return(
         <>
-        
+            <div className="mt-5 pt-5">
                 <div className="row me-2">
-                    <div className="col-3 align-items-end d-flex flex-column justify-content-between ">
+                    <div className="col-3 align-items-center d-flex flex-column justify-content-between ms-4">
                         <img style={{minWidth:"46%"}} src="img/main1.png" alt="" />
                         <img style={{minWidth:"49%"}} src="img/main2.png" alt="" />
                     </div>
@@ -80,14 +81,23 @@ export default function HomeBody(){
                         </div>
                     </div>
                 </div>
-                <div className="row mt-2 d-flex justify-content-center ">
-                    <div className="col-sm-5 d-flex justify-content-center align-items-end">
-                        <img src="img/sub1.png" style={{minWidth: "85%", height: "240px"}} alt="" />
-                    </div>
-                    <div className="col-sm-6 d-flex justify-content-center">
-                        <img src="img/sub2.png" style={{minWidth: "85%", height: "300px"}} alt="" />
+                <div className="row mt-5">
+                    
+                    <div className="col-sm-12">
+                        <div className="container">
+                            <h5 className="ms-5 ps-1 ">Shop by brand</h5>
+                        </div>
                     </div>
                 </div>
+                <div className="row mt-2  d-flex justify-content-center ">
+                    <div className="col-sm-5 p-3 d-flex justify-content-end align-items-end">
+                        <img src="img/sub1.png" style={{minWidth: "92%", height: "250px"}} alt="" />
+                    </div>
+                    <div className="col-sm-6 p-3 d-flex justify-content-start align-items-start">
+                        <img src="img/sub2.png" style={{minWidth: "93%", height: "320px"}} alt="" />
+                    </div>
+                </div>
+            </div>
         </>
     )
 }

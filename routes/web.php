@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,19 +35,26 @@ Route::get('/admin/user', function () {return Inertia::render('AdminHome');});
 
 // Route::get('/admin/input', [AdminController::class,'produkMan']);
 
-Route::get('/masuk', function(){
-    return Inertia::render('Autentikasi', ['canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+// Route::get('/masuk', function(){
+//     return Inertia::render('Autentikasi');
+    // , ['canLogin' => Route::has('login'),
+    //     'canRegister' => Route::has('register'),
+    //     'laravelVersion' => Application::VERSION,
+    //     'phpVersion' => PHP_VERSION,
+    // ]);
+// });
+Route::get('/masuk', [AuthController::class, 'login'])->name('login')->middleware('guest');
+Route::post('/masuk', [AuthController::class,'authenticate']);
+Route::get('/daftar', [AuthController::class,'daftar'])->middleware('guest');
+Route::post('/daftar', [AuthController::class,'store']);
+Route::get('/sanctum/csrf-token', function(){
+    return response()->json(['token' => csrf_token()]);
 });
-
 Route::get('/', [HomeController::class, 'home']);
 Route::get('/search', [HomeController::class, 'home']);
 Route::get('/keranjang', function () {
     return Inertia::render('Keranjang' );
-});
+})->middleware('auth');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

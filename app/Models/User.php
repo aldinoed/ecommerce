@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class User extends Model
 {
     use HasFactory;
-
+    // protected $userId = ['user_id' => '09hd9ds8yf9w'];
+    protected $fillable = ['user_id','email', 'username', 'fullname', 'password'];
     // protected $guarded = ['user_id'];
     protected $amount_order = [
         'amount_order' => 0

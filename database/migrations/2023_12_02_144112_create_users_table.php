@@ -19,9 +19,9 @@ return new class extends Migration
             $table->string('password');
             $table->string('email');
             $table->string('loyalty_id')->nullable();
-            $table->integer('amount_order');
+            $table->integer('amount_order')->nullable();
             $table->string('phone_number')->nullable();
-            $table->enum('user_role', ['admin', 'customer']);
+            $table->enum('user_role', ['admin', 'customer'])->nullable();
             $table->string('image_profile')->nullable();  
             $table->timestamps();
             

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApiController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -29,8 +30,17 @@ use App\Http\Controllers\AuthController;
 // });
 Route::get('/admin', function () {return Inertia::render('AdminHome');});
 Route::get('/admin/produk', function () {return Inertia::render('AdminHome');});
-Route::get('/admin/input-produk', function () {return Inertia::render('InputBarang');});
+Route::get('/admin/brand', [AdminController::class,'indexBrand']);
+Route::get('/admin/input-produk', [AdminController::class,'produkMan']);
+Route::get('/admin/input-brand', [AdminController::class,'brandMan']);
+Route::post('/admin/input-brand', [AdminController::class,'storeBrand']);
+Route::get('/api/categories-data', [ApiController::class,'categories']);
+Route::get('/admin/categories', [AdminController::class,'indexCat']);
+Route::get('/admin/input-cat', [AdminController::class,'catMan']);
+Route::post('/admin/input-cat', [AdminController::class,'storeCat']);
 Route::get('/admin/user', function () {return Inertia::render('AdminHome');});
+Route::delete('/api/delete-user/{userId}', [ApiController::class,'destroyUser']);
+Route::get('/api/users-data', [ApiController::class,'users']);
 // Route::get('/admin/produk', [AdminController::class,'produkMan']);
 
 // Route::get('/admin/input', [AdminController::class,'produkMan']);

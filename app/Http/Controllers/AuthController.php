@@ -23,7 +23,7 @@ class AuthController extends Controller
 
         if(Auth::attempt($credentials)){
             $request->session()->regenerate();
-            return redirect()->intended('/');
+            return redirect()->intended('/')->with('Success', 'Berhasil Masuk!');
         }
 
         return back()->with('error', 'Login failed');
@@ -57,7 +57,7 @@ class AuthController extends Controller
             'user_role' => 'customer',
         ]);
     
-        UserId::created(
+        UserId::create(
             ['user_id' => $validUserId,]
         );
         return redirect()->intended('masuk')->with('success', 'Registrasi berhasil');

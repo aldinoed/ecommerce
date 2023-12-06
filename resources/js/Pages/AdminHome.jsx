@@ -4,12 +4,15 @@ import "../../css/my.css";
 import AdminPreview from "./AdminPreview";
 import Produk from "./Produk";
 import User from "./User";
+import Brand from '../Components/Brand'
+import Categories from "@/Components/Categories";
 
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 
 // import MainNav from "../Components/MainNav";
 
 import { Link, Head } from "@inertiajs/react";
+// import Categories from "@/Componensts/Categories";
 // import { Switch } from "@headlessui/react";
 
 export default function AdminHome(){
@@ -81,6 +84,9 @@ export default function AdminHome(){
                   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
                   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
                   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+                  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+                  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+                  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
             </Head>
 
             <div className="container-fluid">
@@ -91,20 +97,20 @@ export default function AdminHome(){
 
                   <div className=" row">
                         <div className="col-3 menu-dashboard rounded-end shadow d-flex justify-content-center flex-column align-content-between">
-                              <div className="d-flex flex-column justify-content-center  navigasi">
+                              {/* <div className="d-flex flex-column justify-content-center  navigasi">
                                     <div style={{marginLeft :"40px"}} className="">
                                           <h5>halo</h5>
                                           <p>jlook</p>        
                                     </div>
-                              </div>
-                              <div className="btn fitur flex-column d-flex justify-content-center align-items-center" style={{paddingRight: "105px",width:"100%"}}>
-                                    <div>
+                              </div> */}
+                              <div className="btn fitur flex-column d-flex justify-content-evenly align-items-start" style={{paddingRight: "105px",width:"100%"}}>
+                                    <div className="ps-5">
                                           <span className="text-white  material-symbols-outlined">
                                                 home
                                           </span>
-                                                <a className="text-white align-items-center" href="/admin">&#160;&#160;Beranda</a>
+                                          <a className="text-white align-items-center" href="/admin">&#160;&#160;Beranda</a>
                                     </div>
-                                    <div className="btn fitur d-flex justify-content-center align-items-center" style={{paddingRight: "40px"}}>
+                                    <div className="btn fitur d-flex justify-content-center align-items-center ps-4">
                                           <span className="text-white  material-symbols-outlined">
                                                 edit_note
                                           </span><a className="text-white align-items-center" href="peminjaman/">&#160;&#160;Data Transaksi</a>
@@ -114,26 +120,38 @@ export default function AdminHome(){
                                                 home_repair_service
                                           </span><a className="text-white align-items-center" href="/admin/produk">&#160;&#160;Data Produk</a>
                                     </div>
-                                    <div className="btn fitur d-flex justify-content-center align-items-center">&#160;&#160;
+                                    <div className="btn fitur d-flex justify-content-center align-items-center">&#160;&#160;&#160; &#160;&#160;
                                           <span className="text-white  material-symbols-outlined">
                                                       manage_accounts
                                           </span><a className="text-white align-items-center" href="/admin/user">&#160;&#160;Data Pengguna</a>
                                     </div>
-                                    
-                                    <div method="post" className="d-flex justify-content-center fitur" style={{paddingRight: "100px"}}>
-                                          <a name="login" type="submit" className=" btn text-white d-flex align-items-center justify-content-center" style={{borderRadius:"0px", height:"50px",width: "100%"}} href="../proyek/login/">
+                                    <div className="btn fitur d-flex justify-content-center align-items-center">
+                                          <span className="text-white  material-symbols-outlined">
+                                          label
+                                          </span><a className="text-white align-items-center" href="/admin/brand">&#160;&#160;Data Brand</a>
+                                    </div>
+                                    <div className="btn fitur d-flex justify-content-center align-items-center">
+                                          <span className="text-white  material-symbols-outlined ps-2">
+                                          category
+                                          </span><a className="text-white align-items-center" href="/admin/categories">&#160;&#160;Data Kategori</a>
+                                    </div>
+                                    <br />
+                                    <div method="post" className="ps-5 d-flex justify-content-center fitur" style={{paddingRight: "90px"}}>
+                                          <a name="logout" type="submit" className=" btn text-white d-flex align-items-center justify-content-center" style={{borderRadius:"0px", height:"50px",width: "100%"}} href="../proyek/login/">
                                                 <span className="material-symbols-outlined">
                                                       logout
-                                                </span>&#160;&#160;Login
+                                                </span>&#160;&#160;Logout
                                           </a>
                                     </div>
                               </div>
                         </div>
-                        <div className="col-9   ms-auto me-auto bg-white rounded-2 pt-3 " style={{maxHeight:"76vh",marginTop: "80px"}}>
+                        <div className="col-9  p-4 ms-auto me-auto bg-white rounded-2 pt-3 " style={{maxHeight:"76vh",marginTop: "80px"}}>
                               <Routes>
                                     <Route path="/admin" element={<AdminPreview/>}/>
                                     <Route path="/admin/produk" element={<Produk/>}/>
                                     <Route path="/admin/user" element={<User/>}/>
+                                    <Route path="/admin/brand" element={<Brand/>}/>
+                                    <Route path="/admin/categories" element={<Categories/>}/>
                               </Routes>
                         </div>
                   </div>

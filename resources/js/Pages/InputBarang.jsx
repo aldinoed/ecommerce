@@ -12,7 +12,7 @@ export default function FormInputProduk(){
         <Head title="Input Produk"></Head>
         <div className="p-3 mb-2  mt-5">
             <div className="align-self-center ">
-                <form style={{maxHeight: "100vh", width: "60%"}} className="p-4 m-auto shadow rounded bg-white" method="POST" action="form.php" encType="multipart/form-data">
+                <form style={{maxHeight: "100vh", width: "60%"}} className="p-4 m-auto shadow rounded bg-white" method="POST" action="/input-produk" encType="multipart/form-data">
                     <p className="text-center fs-2">Input Data Produk</p>
                     <div className="row mt-3 d-flex justify-content-center">
                         <div className="col-md">

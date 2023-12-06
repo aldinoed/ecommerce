@@ -7,7 +7,7 @@ import Daftar from '../Components/Daftar';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Link, Head } from "@inertiajs/react";
 
-export default function Login() {
+export default function Autentikasi() {
     return (
         <>
         <Router>

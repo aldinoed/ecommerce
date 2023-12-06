@@ -18,13 +18,13 @@ Route::middleware('guest')->group(function () {
 
     Route::post('register', [RegisteredUserController::class, 'store']);
 
-    // Route::get('login', [AuthenticatedSessionController::class, 'create'])
-    //             ->name('login');
-    Route::get('/masuk', [AuthController::class, 'login'])
+    Route::get('login', [AuthenticatedSessionController::class, 'create'])
+                ->name('login');
+    Route::get('masuk', [AuthController::class, 'login'])
                 ->name('login');
 
-    // Route::post('login', [AuthenticatedSessionController::class, 'store']);
-    Route::post('/masuk', [AuthController::class, 'authenticate']);
+    Route::post('login', [AuthenticatedSessionController::class, 'store']);
+    Route::post('masuk', [AuthController::class, 'authenticate']);
 
     Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
                 ->name('password.request');

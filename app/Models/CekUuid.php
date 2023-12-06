@@ -12,4 +12,9 @@ class CekUuid extends Model
         $userIdData = UserId::where('user_id', $validUserId)->orWhere('user_id', '=', 0)->first();
         return $userIdData;
     }
+
+    // public static function cekUuid($validUserId){
+    //     $userIdData = UserId::where('user_id', $validUserId)->orWhere('user_id', '=', 0)->first();
+    //     return $userIdData;
+    // }
 }

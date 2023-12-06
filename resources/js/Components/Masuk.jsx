@@ -26,7 +26,7 @@ export default function Masuk(){
             .then((response)=>{
                 if(response.status === 200){
                     console.log('Berhasil Masuk')
-                    redirect('/')
+                    // window.location.href =('/');
                 }
             })
             .catch((error)=>{

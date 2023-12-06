@@ -34,7 +34,7 @@ export default function Daftar(){
             .then((response)=>{
                 if(response.status === 200){
                     console.log('Berhasil Daftar')
-                    redirect('/masuk')
+                    // redirect('/masuk')
                 }
             })
             .catch((error)=>{

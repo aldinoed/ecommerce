@@ -3,20 +3,26 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+// use Illuminate\Contracts\Auth\Authenticatable;
+// use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 use Illuminate\Database\Eloquent\Model;
+// use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Model
 {
+    // use AuthenticatableTrait;
+    // use ;
     use HasFactory;
-    // protected $userId = ['user_id' => '09hd9ds8yf9w'];
     protected $fillable = ['user_id','email', 'username', 'fullname', 'password'];
-    // protected $guarded = ['user_id'];
     protected $amount_order = [
         'amount_order' => 0
     ];
     public function userLocations(){
         return $this->hasMany(UserLocation::class);
-    }   
+    }
+    public function searchs(){
+        return $this->hasMany(SearchHistory::class);
+    }
     public function userLoyalties(){
         return $this->belongsTo(UserLoyalty::class);
     }   

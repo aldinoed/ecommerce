@@ -9,8 +9,6 @@ import { Link, Head } from "@inertiajs/react";
 export default function Produk(){
     return(
         <>
-        {/* <Head></Head> */}
-        {/* table section */}
         {/* <div className="col-9 ms-auto me-auto bg-white rounded-2 pt-3 " style={{maxHeight:"80vh", marginTop: "30px"}}> */}
             <div className="d-flex align-items-center justify-content-between mb-2">
                 <button className="btn-primary btn" width="30px">
@@ -31,15 +29,6 @@ export default function Produk(){
                         </tr>
                     </thead>       
                     <tbody>
-                                          {/* <?php
-                                          include '../connection.php';
-                                          $connect->exec("USE proyek");
-                                          $query = "SELECT * FROM barang";
-                                          $statement = $connect->prepare($query);
-                                          $statement->execute();
-                                          $users = $statement->fetchAll();
-                                          $i = 1;
-                                          foreach ($users as $barang) {  ?> */}
                         <tr>
                             <td>1</td>
                             <td>id_barang_2131</td>

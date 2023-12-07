@@ -3,14 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-// use Illuminate\Contracts\Auth\Authenticatable;
-// use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
+use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 use Illuminate\Database\Eloquent\Model;
-// use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Model
+
+class User extends Model implements Authenticatable
 {
-    // use AuthenticatableTrait;
+    use AuthenticatableTrait;
     // use ;
     use HasFactory;
     protected $fillable = ['user_id','email', 'username', 'fullname', 'password'];

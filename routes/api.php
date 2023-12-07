@@ -14,10 +14,12 @@ use App\Http\Controllers\ApiController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-Route::delete('/api/delete-user/{userId}', [ApiController::class,'destroyUser']);
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+// Route::post('/admin/input-produk', [ApiController::class,'storePro']);
+
 // Route::middleware('auth:sanctum')->get('/login', function (Request $request) {
 //     return $request->user();
 // });

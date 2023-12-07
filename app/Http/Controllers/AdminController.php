@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\ProductBrand;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-use Illminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Storage;
 use App\Models\CekUuid;
 use App\Models\User;
 use App\Models\Category;
+use App\Models\Product;
+use Illuminate\Support\Str;
 
 class AdminController extends Controller
 {
@@ -49,32 +51,9 @@ class AdminController extends Controller
         ]);
         return redirect()->intended('admin/input-cat')->with('success', 'Input Kategori berhasil');
     }
-    public function storeBrand(Request $request){
-        dd($request->all());
-        // return $request->file('image')->store('brand-images');
-        $validatedData = $request->validate([
-            'brand_name' => 'required',
-            'brand_image' => 'image|file|max:2048',
-        ]);
-        if ($request->hasFile('image')) {
-            // do{
-                
-                $validBrandId = uuid_create();
-            //     $userIdData = CekUuid::cekUserUuid($validUserId);
-            // }while($userIdData != null);
-            $path = $request->file('image')->store('brand-images');
-            ProductBrand::create([
-                'brand_id'=>$validBrandId,
-                'brand_name' => $request->brand_name,
-                'brand_image' => $path,
-            ]);
-
-            return response()->json(['message' => 'Brand created successfully']);
-        }
-        return response()->json(['error' => 'Image not found in the request'], 400);
+    
 
         // $brands.
-    }
     public function transactionMan(){
         return view("");
     }

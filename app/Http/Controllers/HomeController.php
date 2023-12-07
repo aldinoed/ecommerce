@@ -14,7 +14,12 @@ class HomeController extends Controller
     // }
     public function home(){
         // $search = $request->get("search");
-        return Inertia::render('Home');
+        return Inertia::render('Home', [
+            'auth' => [
+                'check' => auth()->check(),
+                'user' => auth()->user(),
+            ],
+        ]);
     }
 
     public function searchProduct(){

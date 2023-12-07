@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
-import useCsrfToken from "./useCsrfToken";
+import axios from "axios";
+// import { Inertia } from '@inertiajs/inertia';
+import { Link, Head } from "@inertiajs/react";
+// import useCsrfToken from "./useCsrfToken";
 
 export default function Masuk(){
-    const {token} = useCsrfToken();
+    // const {token} = useCsrfToken();
 
     const [data, setData] = useState({
         password: "",
@@ -15,21 +18,23 @@ export default function Masuk(){
         })
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault()
 
         const formData = new FormData();
         formData.append('password', data.password);
         formData.append('email', data.email);
 
-        axios.post('/masuk', formData)
-            .then((response)=>{
-                if(response.status === 200){
-                    console.log('Berhasil Masuk')
-                    // window.location.href =('/');
-                }
-            })
-            .catch((error)=>{
+            try{
+                let res = await axios.post('/masuk', formData)
+        // .then((response)=>{
+            if(res.status === 200){
+                alert('Berhasil Masuk')
+                // window.location.href =('/');
+            }
+        // })
+            }catch(error){
+                // catch((error)=>{
                 if (error.response && error.response.data && error.response.data.message) {
                     // Access the error message from the response
                     alert(error.response.data.message);
@@ -37,12 +42,16 @@ export default function Masuk(){
                     // If the error structure is different, just show a generic error
                     alert('Login gagal. Silakan coba lagi.');
                 }
-            })
+            // })
+            }
     }
     return(
         <>
+        <Head>
+           {/* <meta name="_token" content={token} /> */}
+        </Head>
         <form method="POST" action="/masuk" onSubmit={handleSubmit} className="mt-4 pt-5">
-            <input type="hidden" name="_token" value={token}  />
+            {/* <input type="hidden" name="_token" value={token}  /> */}
             <div className="mb-3">
                 <label className="form-label" forhtml="exampleInputEmail1">
                     Email

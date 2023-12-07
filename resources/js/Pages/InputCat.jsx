@@ -63,8 +63,8 @@ export default function InputBrand(){
                     </div>
                     <div className="d-flex mx-auto mt-3">
                         <input className="btn btn-primary me-2" type="submit" value="Submit" name="submit"/>
-                        <input className="btn btn-danger" type="reset" value="Clear"/>
-                        <button type="reset" className="btn btn-secondary  tombol" style={{marginLeft:"10px"}}><a href="/admin/cat" className="text-white" style={{textDecoration:"none"}}>&#160;Back&#160;</a></button>
+                        <button className="btn btn-danger" type="reset">Clear</button>
+                        <button type="reset" className="btn btn-secondary  tombol" style={{marginLeft:"10px"}}><a href="/admin/categories" className="text-white" style={{textDecoration:"none"}}>&#160;Back&#160;</a></button>
                     </div>
                 </form>
             </div>

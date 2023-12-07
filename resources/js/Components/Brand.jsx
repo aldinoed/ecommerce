@@ -16,6 +16,7 @@ export default function Brand(){
                 console.log('Error fetching data: ', error)
             })
     }, [])
+    
     // }
     return(
     <>
@@ -41,8 +42,9 @@ export default function Brand(){
                 <tr key={brand.id}>
                     <td>{brand.id}</td>
                     <td>{brand.brand_nama}</td>
-                    <td>f</td>
-                    <td></td>
+                    <td>
+
+                    </td>
                 </tr>
             // )}
     // Your mapping logic

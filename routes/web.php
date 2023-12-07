@@ -32,15 +32,18 @@ Route::get('/admin', function () {return Inertia::render('AdminHome');});
 Route::get('/admin/produk', function () {return Inertia::render('AdminHome');});
 Route::get('/admin/brand', [AdminController::class,'indexBrand']);
 Route::get('/admin/input-produk', [AdminController::class,'produkMan']);
+Route::post('/api/input-produk', [ApiController::class,'storeProduk']);
 Route::get('/admin/input-brand', [AdminController::class,'brandMan']);
-Route::post('/admin/input-brand', [AdminController::class,'storeBrand']);
+Route::post('/api/input-brand', [ApiController::class,'storeBrand']);
 Route::get('/api/categories-data', [ApiController::class,'categories']);
+Route::get('/api/brands-data', [ApiController::class,'brands']);
 Route::get('/admin/categories', [AdminController::class,'indexCat']);
 Route::get('/admin/input-cat', [AdminController::class,'catMan']);
 Route::post('/admin/input-cat', [AdminController::class,'storeCat']);
 Route::get('/admin/user', function () {return Inertia::render('AdminHome');});
-Route::delete('/api/delete-user/{userId}', [ApiController::class,'destroyUser']);
+Route::delete('/api/delete-category/{catId}', [ApiController::class,'destroyCat']);
 Route::get('/api/users-data', [ApiController::class,'users']);
+Route::delete('/api/delete-user/{userId}', [ApiController::class,'destroyUser']);
 // Route::get('/admin/produk', [AdminController::class,'produkMan']);
 
 // Route::get('/admin/input', [AdminController::class,'produkMan']);
@@ -53,9 +56,9 @@ Route::get('/api/users-data', [ApiController::class,'users']);
     //     'phpVersion' => PHP_VERSION,
     // ]);
 // });
-Route::get('/masuk', [AuthController::class, 'login'])->name('login')->middleware('guest');
+Route::get('/masuk', [AuthController::class, 'login'])->name('login');
 Route::post('/masuk', [AuthController::class,'authenticate']);
-Route::get('/daftar', [AuthController::class,'daftar'])->middleware('guest');
+Route::get('/daftar', [AuthController::class,'daftar']);
 Route::post('/daftar', [AuthController::class,'store']);
 Route::get('/sanctum/csrf-token', function(){
     return response()->json(['token' => csrf_token()]);
@@ -69,6 +72,13 @@ Route::get('/keranjang', function () {
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware(['web', 'auth'])->group(function () {
+    Route::get('/keranjang', function () {
+        return Inertia::render('Keranjang');
+    });
+    // ... other routes
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

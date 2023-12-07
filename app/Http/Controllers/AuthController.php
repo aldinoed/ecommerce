@@ -23,7 +23,7 @@ class AuthController extends Controller
 
         if(Auth::attempt($credentials)){
             $request->session()->regenerate();
-            return redirect()->intended('/')->with('Success', 'Berhasil Masuk!');
+            return redirect('/admin');
         }
 
         return back()->with('error', 'Login failed');
@@ -42,10 +42,10 @@ class AuthController extends Controller
             'password' => ['required', 'min:8'],
         ]);
         
-        do{
-            $validUserId = uuid_create();
-            $userIdData = CekUuid::cekUserUuid($validUserId);
-        }while($userIdData != null);
+        $validUserId = uuid_create();
+        // do{
+        //     $userIdData = CekUuid::cekUserUuid($validUserId);
+        // }while($userIdData != null);
 
         
         User::create([

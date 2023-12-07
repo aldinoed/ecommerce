@@ -30,7 +30,7 @@ export default function User(){
             })
             setUsers(newUserData)
         }else{
-                console.error('Error deleting user:', error);
+                console.error('Error deleting user:');
                 alert('Error deleting user. Check console for details.');
         };
     }

@@ -1,7 +1,7 @@
 import useCsrfToken from "./useCsrfToken";
 import React, {useState, useEffect} from "react";
 import axios  from "axios";
-import { redirect } from "react-router-dom";
+// import { redirect } from "react-router-dom";
 
 export default function Daftar(){
     const {token} = useCsrfToken();
@@ -19,21 +19,19 @@ export default function Daftar(){
         })
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
 
         const formData = new FormData();
-        // let user_id = "akdh29h32hhjhjsahjk"
-        // formData.append('user_id', user_id);
         formData.append('username', data.username);
         formData.append('fullname', data.fullname);
         formData.append('password', data.password);
         formData.append('email', data.email);
 
-        axios.post('/daftar', formData)
+        await axios.post('/daftar', formData)
             .then((response)=>{
                 if(response.status === 200){
-                    console.log('Berhasil Daftar')
+                   alert('Berhasil Daftar')
                     // redirect('/masuk')
                 }
             })
@@ -47,7 +45,6 @@ export default function Daftar(){
                 }
             })
     }
-
     return(
         <>
         {/* <CsrfToken> */}

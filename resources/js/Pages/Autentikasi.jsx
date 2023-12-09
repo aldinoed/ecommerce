@@ -25,11 +25,10 @@ export default function Autentikasi() {
                     style={{ border: "none", width: "55%", height: "70%" }}
                 >
                     <div
-                        className="brand-login col-sm-4 rounded-start-4"
+                        className="brand-login pt-4 ps-4 col-sm-4 rounded-start-4"
                         style={{ width: "43%" }}
                     >
-                        <h6>compnet</h6>
-                        
+                        <h2 className="text-primary fw-bolder">Compnet</h2>
                     </div>
                     <div
                         className="bg-white p-4 col-sm-6 rounded-4"

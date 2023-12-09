@@ -7,6 +7,8 @@ import HomeBody from "@/Components/HomeBody";
 import { Link, Head } from "@inertiajs/react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import SearchGrid from "./SearchGrid";
+import ProductView from "@/Components/ProductView";
+import Keranjang from "./Keranjang";
 
 export default function Home() {
     return (
@@ -18,6 +20,8 @@ export default function Home() {
             <Routes>
                 <Route path="/" element={<HomeBody/>}/>
                 <Route path="/search" element={<SearchGrid/>}></Route>
+                <Route path="/keranjang" element={<Keranjang/>}></Route>
+                <Route path="/:productName" element={<ProductView/>}></Route>
             </Routes>
             </div>
         </Router>

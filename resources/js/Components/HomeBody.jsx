@@ -2,9 +2,18 @@ import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "../../css/app.css";
 import "../../css/my.css";
 
-import { Link, Head } from "@inertiajs/react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 export default function HomeBody(){
+    const [brands, setBrands] = useState([])
+
+    useEffect(()=>{
+        axios.get('/api/brands-data')
+            .then(res =>setBrands(res.data.brands))
+            .catch(err=> alert(err))
+    }, [])
+
     return(
         <>
             <div className="mt-5 pt-5">
@@ -82,11 +91,21 @@ export default function HomeBody(){
                     </div>
                 </div>
                 <div className="row mt-5">
-                    
-                    <div className="col-sm-12">
-                        <div className="container">
-                            <h5 className="ms-5 ps-1 ">Shop by brand</h5>
+                    <div className="col-sm-12 ">
+                        <div className="container ">
+                            <h5 className="ms-5 ps ">Shop by brand</h5>
                         </div>
+                        <section className="container" style={{marginTop:"-10px"}}>
+                                <div className="row ">
+                                <div className="scrollcards d-flex align-items-center ps-5 pe-5 overflow-x-hidden">
+                                    {Array.isArray(brands) && brands.map(brand => (
+                                    <div className="card cardBrand justify-content-center d-flex align-items-center">
+                                        <a href={'/category/'+brand.brand_name}><img style={{maxWidth:"10vh"}} className="card-img-top " src={'http://127.0.0.1:8000/storage/'+brand.brand_image}/></a>
+                                    </div>
+                                    ))}            
+                                </div>
+                                </div>
+                        </section>
                     </div>
                 </div>
                 <div className="row mt-2  d-flex justify-content-center ">

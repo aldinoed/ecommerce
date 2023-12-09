@@ -11,7 +11,7 @@ export default function MainNav() {
             <div className="container-fluid bg-white border-bottom pb-4 pt-3 shadow fixed-top">
                 <div className="row d-flex align-items-center justify-content-evenly">
                     <div className="col-1 d-flex justify-content-center">
-                        <img src="img/icon.png" alt="" />
+                        <a href="/"><img src="img/icon.png" alt="" /></a>
                     </div>
                     <div className="col-1">
                         <div className="row">

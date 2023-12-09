@@ -3,18 +3,32 @@ import "../../css/app.css";
 import "../../css/my.css";
 
 // import MainNav from "../Components/MainNav";
-
-import { Link, Head } from "@inertiajs/react";
+import axios from "axios";
+import { useState, useEffect } from "react";
+// import { Link, Head } from "@inertiajs/react";
 
 export default function Produk(){
+
+    let i = 1;
+    const [products, setProducts] = useState([]);
+    useEffect(()=>{
+        axios.get('/api/products-data')
+            .then((response) => {
+                console.log(response.data.products);
+                setProducts(response.data.products)
+            })
+            .catch((error)=>console.log(error.message))
+    }, [])
     return(
         <>
         {/* <div className="col-9 ms-auto me-auto bg-white rounded-2 pt-3 " style={{maxHeight:"80vh", marginTop: "30px"}}> */}
+        <div className="shadow p-3 rounded-2">
             <div className="d-flex align-items-center justify-content-between mb-2">
-                <button className="btn-primary btn" width="30px">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" className="bi bi-plus-lg" viewBox="0 0 13 13">
+                <button className="btn-primary btn align-items-baseline d-flex justify-content-evenly" style={{minWidth:"90px"}}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-plus-lg float-start " viewBox="0 0 16 16">
                         <path fillRule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
-                    </svg><a href="/admin/input-produk/" className="text-white">Tambah</a>
+                    </svg>
+                    <a href="/admin/input-produk/" className="text-white">Tambah</a>
                 </button>
             </div>
             <div className="table-view overflow-auto" style={{height:"80%"}}>
@@ -22,19 +36,30 @@ export default function Produk(){
                     <thead>
                         <tr>
                             <th scope="col">No.</th>
-                            <th scope="col">Id Barang</th>
-                            <th scope="col">Nama Barang</th>
+                            <th scope="col" style={{maxWidth:"200px"}}>Nama Produk</th>
+                            <th scope="col">Harga Produk</th>
                             <th scope="col">Stok</th>
+                            <th scope="col">Terjual</th>
                             <th scope="col" className="ms-5">Action</th>
                         </tr>
                     </thead>       
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>id_barang_2131</td>
-                            <td>RAM</td>
-                            <td className="ps-5">Stok</td>
-                            <td className="d-flex justify-content-start">
+                        {Array.isArray(products) && products.map((product)=>(
+                        <tr key={i++}>
+                            <td>{i++}</td>
+                            <td style={{maxWidth:"200px"}}>{product.product_name}</td>
+                            <td>Rp. {product.product_price}</td>
+                            <td>{product.product_stock}</td>
+                            <td className="ps-5">{product.sold_amount}</td>
+                            <td className="d-flex justify-content-start" style={{minHeight:"92px"}}>
+                                <form method="GET" action="update.php">
+                                    <button className="btn btn-success" name="view" onClick={()=>handleDelete(product.product_id)}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                                          <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+                                          <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
+                                        </svg>
+                                    </button> 
+                                </form>
                                 <form method="GET" action="update.php">
                                     <button className="btn btn-warning" name="update" value="<?= $barang['id_barang']; ?>">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-pencil-square" viewBox="0 0 16 16">
@@ -54,12 +79,11 @@ export default function Produk(){
                                 </form>
                             </td>
                         </tr>
-                                          {/* <?php $i++;
-                                          } ?> */}
+                        ))}
                     </tbody>
                 </table>
             </div>
-        {/* </div> */}
+        </div>
         </>
     );
 }

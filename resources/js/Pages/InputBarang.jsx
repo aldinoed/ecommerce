@@ -126,7 +126,7 @@ export default function FormInputProduk(){
                             <input className="form-control" name="price" type="number" placeholder="" aria-label="" onChange={(e)=>setPrice(e.target.value)}/>
                         </div>
                         <div className="mb-3 mt-3">
-                            <label htmlFor="formFileMultiple" className="form-label text-secondary">Masukkan Foto Keadaan Barang Saat Ini</label>
+                            <label htmlFor="formFileMultiple" className="form-label text-secondary">Masukkan Foto Produk</label>
                             <input className="form-control" type="file" id="formFileMultiple" multiple name="image" onChange={(e)=>setFileImage(e.target.files[0])}/>
                         </div>
                    </div>

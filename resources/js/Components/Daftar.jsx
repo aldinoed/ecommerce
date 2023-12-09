@@ -32,7 +32,8 @@ export default function Daftar(){
             .then((response)=>{
                 if(response.status === 200){
                    alert('Berhasil Daftar')
-                    // redirect('/masuk')
+                   window.location.href('/masuk')
+                   return
                 }
             })
             .catch((error)=>{
@@ -48,7 +49,7 @@ export default function Daftar(){
     return(
         <>
         {/* <CsrfToken> */}
-        <form method="POST" action="/daftar" className="mt-4 me-1" onSubmit={handleSubmit} >
+        <form method="POST" action="/daftar" className="mt-3 me-1" onSubmit={handleSubmit} >
             <input type="hidden" name="_token" value={token} />
             <div className="mb-3">
                 <label className="form-label" forhtml="exampleInputEmail1">
@@ -78,9 +79,9 @@ export default function Daftar(){
             <button className="btn btn-primary " type="submit">Daftar</button>
             </div>
             <br />
-            <span>Tidak bisa daftar? Hubungi</span>
-            <a href="https://api.whatsapp.com/send?phone=6283811051466">
-                Admin
+            <span className="">Sudah punya akun? </span>
+            <a href="/masuk">
+                Masuk
             </a>
         </form>
         {/* </CsrfToken> */}

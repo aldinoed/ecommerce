@@ -20,18 +20,19 @@ use App\Http\Controllers\AuthController;
 |
 */
 
-// Route::get('/', function () {
-//     return Inertia::render('Welcome', [
-//         'canLogin' => Route::has('login'),
-//         'canRegister' => Route::has('register'),
-//         'laravelVersion' => Application::VERSION,
-//         'phpVersion' => PHP_VERSION,
-//     ]);
-// });
+Route::get('/', function () {
+    return Inertia::render('Welcome', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+    ]);
+});
 Route::get('/admin', function () {return Inertia::render('AdminHome');});
 Route::get('/admin/produk', function () {return Inertia::render('AdminHome');});
 Route::get('/admin/brand', [AdminController::class,'indexBrand']);
 Route::get('/admin/input-produk', [AdminController::class,'produkMan']);
+Route::get('/api/products-data', [ApiController::class,'products']);
 Route::post('/api/input-produk', [ApiController::class,'storeProduk']);
 Route::get('/admin/input-brand', [AdminController::class,'brandMan']);
 Route::post('/api/input-brand', [ApiController::class,'storeBrand']);
@@ -56,8 +57,8 @@ Route::delete('/api/delete-user/{userId}', [ApiController::class,'destroyUser'])
     //     'phpVersion' => PHP_VERSION,
     // ]);
 // });
-Route::get('/masuk', [AuthController::class, 'login'])->name('login');
-Route::post('/masuk', [AuthController::class,'authenticate']);
+Route::get('/masuk', [AuthController::class, 'login']);
+// Route::post('/masuk', [AuthController::class,'authenticate']);
 Route::get('/daftar', [AuthController::class,'daftar']);
 Route::post('/daftar', [AuthController::class,'store']);
 Route::get('/sanctum/csrf-token', function(){
@@ -65,20 +66,22 @@ Route::get('/sanctum/csrf-token', function(){
 });
 Route::get('/', [HomeController::class, 'home']);
 Route::get('/search', [HomeController::class, 'home']);
+Route::get('/{produkId}', [HomeController::class, 'specificProduct']);
+Route::get('/api/products-data/{productName}', [ApiController::class, 'specificProduct']);
 Route::get('/keranjang', function () {
     return Inertia::render('Keranjang' );
-})->middleware('auth');
+});
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware(['web', 'auth'])->group(function () {
-    Route::get('/keranjang', function () {
-        return Inertia::render('Keranjang');
-    });
-    // ... other routes
-});
+// Route::middleware(['web', 'auth'])->group(function () {
+//     Route::get('/keranjang', function () {
+//         return Inertia::render('Keranjang');
+//     });
+//     // ... other routes
+// });
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

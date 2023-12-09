@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use Inertia\Inertia;
 
-
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -24,5 +24,8 @@ class HomeController extends Controller
 
     public function searchProduct(){
         // return Inertia::render
+    }
+    public function specificProduct(){
+        return Inertia::render('Home');
     }
 }

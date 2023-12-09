@@ -19,7 +19,7 @@ export default function InputBrand(){
     const[fileImage, setFileImage] = useState('')
 
     const uploadImage = async()=>{
-        console.log(fileImage)
+        // console.log(fileImage)
         const formData = new FormData();
         formData.append('name', name);
         formData.append('image',fileImage);
@@ -41,8 +41,8 @@ export default function InputBrand(){
         <Head title="Input Brand">
             <meta name="csrf-token" content={token} />
         </Head>
-        <div className="p-3 mb-2  mt-5">
-            <div className="align-self-center ">
+        <div className="p-3 mb-2" style={{position:"relative" , top:"25vh"}}>
+            <div className="align-self-center">
                 <form style={{maxHeight: "100vh", width: "60%"}} className="p-4 m-auto shadow rounded bg-white" onSubmit={handleSubmit}>
                     <input type="hidden" value={token} name="_token" />
                     <p className="text-center fs-2">Input Data Brand</p>

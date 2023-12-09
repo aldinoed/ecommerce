@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\User;
+// use App\Models\ProductBrand;
 use App\Models\ProductBrand;
 use App\Models\CekUuid;
 use App\Models\Product;
@@ -14,9 +15,24 @@ use Illuminate\Support\Facades\Storage;
 
 class ApiController extends Controller
 {
+    public function specificProduct($productName){
+        $product = Product::where("product_name", $productName)->join('product_brands', 'products.brand_id', '=', 'product_brands.brand_id')->first();
+        $productMedia = Product::where("product_name", $productName)->join('product_media', 'products.product_id', '=','product_media.product_id')->first();
+        
+        if(!$product || !$productMedia) {
+            return response()->json(['message' => 'Product not found'], 404);
+        }  
+        
+        $result = ['media'=>$productMedia, 'product' => $product];
+        return response()->json($result, 200);
+    }
     public function categories(){
         $categories = Category::all();
         return response()->json(['categories' => $categories]);
+    }
+    public function products(){
+        $products = Product::all();
+        return response()->json(['products'=> $products]);
     }
     public function brands(){
         $brands = ProductBrand::all();
@@ -93,7 +109,7 @@ class ApiController extends Controller
                 'brand_id' => $request->brand,
                 'product_price' => $request->price,
                 'product_stock' => $request->amount,
-                'sold_amount' => 1,
+                'sold_amount' => 0,
             ]);
             ProductMedia::create([
                 'media_id' => $validMediaId,

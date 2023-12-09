@@ -13,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->string('user_id')->primary();
+            $table->string('id')->primary();
             $table->string('username');
             $table->string('fullname');
             $table->string('password');
@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('loyalty_id')->nullable();
             $table->integer('amount_order')->nullable();
             $table->string('phone_number')->nullable();
-            $table->enum('user_role', ['admin', 'customer'])->nullable();
+            $table->boolean('is_admin');
             $table->string('image_profile')->nullable();  
             $table->timestamps();
             

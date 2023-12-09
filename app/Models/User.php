@@ -13,7 +13,7 @@ class User extends Model implements Authenticatable
     use AuthenticatableTrait;
     // use ;
     use HasFactory;
-    protected $fillable = ['user_id','email', 'username', 'fullname', 'password'];
+    protected $fillable = ['id','email', 'username', 'fullname', 'password'];
     protected $amount_order = [
         'amount_order' => 0
     ];

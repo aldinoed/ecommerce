@@ -19,7 +19,7 @@ return new class extends Migration
             $table->double('total');
             $table->string('order_id')->nullable();
             $table->timestamps();
-            $table->foreign('user_id')->references('user_id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('product_id')->references('product_id')->on('products');
         });
     }

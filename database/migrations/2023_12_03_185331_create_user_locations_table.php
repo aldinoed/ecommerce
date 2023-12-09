@@ -22,7 +22,7 @@ return new class extends Migration
             $table->text('detail_location');
             $table->timestamps();
                     
-            $table->foreign('user_id')->references('user_id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('province_id')->references('province_id')->on('provinces');
             $table->foreign('district_id')->references('district_id')->on('districts');
             $table->foreign('subdistrict_id')->references('subdistrict_id')->on('subdistricts');

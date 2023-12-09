@@ -5,7 +5,7 @@ import "../../css/my.css";
 
 import { Link, Head } from "@inertiajs/react";
 
-export default function MainNav() {
+export default function MainNav({isAuthenticated}) {
     return (
         <>
             <div className="container-fluid bg-white border-bottom pb-4 pt-3 shadow fixed-top">
@@ -74,6 +74,7 @@ export default function MainNav() {
                             />
                         </form>
                     </div>
+                    
                     <div className="col-1 border-end d-flex justify-content-center">
                         <a href="/keranjang" className="href">
                             <svg
@@ -88,12 +89,21 @@ export default function MainNav() {
                             </svg>
                         </a>
                     </div>
-                    <div className="col-2 d-flex justify-content-evenly">
+                    {!isAuthenticated ? (
+                    <>
+                        <div className="col-2 d-flex justify-content-evenly">
                         {/* <form className="d-flex justify-content-evenly"> */}
                             <div className="btn border bg-white"><a href="/masuk" className="text-black">Masuk</a></div>
                             <div className="btn bg-primary"><a href="/daftar" className="text-white">Daftar</a></div>
                         {/* </form> */}
                     </div>
+                    </>
+                ) : (
+                    <>
+                    <h2>halo</h2>
+                    </>
+                )}
+                    
                 </div>
             </div>
         </>

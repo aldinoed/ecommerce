@@ -32,7 +32,7 @@ export default function Daftar(){
             .then((response)=>{
                 if(response.status === 200){
                    alert('Berhasil Daftar')
-                   window.location.href('/masuk')
+                   window.location.href= '/masuk'
                    return
                 }
             })
@@ -42,7 +42,7 @@ export default function Daftar(){
                     alert(error.response.data.message);
                 } else {
                     // If the error structure is different, just show a generic error
-                    alert('Registrasi gagal. Silakan coba lagi.');
+                    console.log('Registrasi gagal. Silakan coba lagi.' + error);
                 }
             })
     }

@@ -9,13 +9,16 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import SearchGrid from "./SearchGrid";
 import ProductView from "@/Components/ProductView";
 import Keranjang from "./Keranjang";
+import { useEffect } from "react";
 
-export default function Home() {
+export default function Home({userData}) {
+    console.log(userData)
     return (
         <>
         <Router>
             <Head title="Situs Toko Komputer Terlengkap & Termurah"></Head>
-            <MainNav></MainNav>
+            <MainNav isAuthenticated={userData}></MainNav>
+            <h1></h1>
             <div className="container-fluid pt-5 ">
             <Routes>
                 <Route path="/" element={<HomeBody/>}/>

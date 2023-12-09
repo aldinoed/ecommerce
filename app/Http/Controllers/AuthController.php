@@ -22,8 +22,10 @@ class AuthController extends Controller
         ]);
 
         if(Auth::attempt($credentials)){
-            $request->session()->regenerate();
-            return redirect('/admin');
+            $res = $request->session()->regenerate();
+            Inertia::render('Autentikasi', [
+
+            ]);
         }
 
         return back()->with('error', 'Login failed');

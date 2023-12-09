@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-// import { Inertia } from '@inertiajs/inertia';
+import { Inertia } from '@inertiajs/inertia';
 import { Link, Head } from "@inertiajs/react";
 import { useStateContext } from "@/contexts/ContextProvider";
 import Home from "@/Pages/Home";
@@ -34,22 +34,15 @@ export default function Masuk(){
 
             try{
                 let res = await axios.post('/masuk', formData)
-        // .then((response)=>{
-            if(res.status === 200){
-                alert('Berhasil Masuk')
-                // window.location.href =('/');
-            }
-        // })
+                if(res.status === 200){
+                    alert('Berhasil Masuk')
+                }
             }catch(error){
-                // catch((error)=>{
                 if (error.response && error.response.data && error.response.data.message) {
-                    // Access the error message from the response
                     alert(error.response.data.message);
                 } else {
-                    // If the error structure is different, just show a generic error
-                    alert('Login gagal. Silakan coba lagi.');
+                    console.log('Login gagal. Silakan coba lagi.'+ error);
                 }
-            // })
             }
     }
     return(

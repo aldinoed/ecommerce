@@ -1,0 +1,1 @@
+import{r as e}from"./app-86af9291.js";function r(){const[n,o]=e.useState(null);return e.useEffect(()=>{fetch("/sanctum/csrf-token").then(t=>t.json()).then(t=>{o(t.token)})},[]),{token:n}}export{r as u};

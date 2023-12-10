@@ -23,7 +23,7 @@ class AuthController extends Controller
 
         if(Auth::attempt($credentials)){
             $res = $request->session()->regenerate();
-            Inertia::render('Autentikasi', [
+            Inertia::render('InputBarang', [
 
             ]);
         }

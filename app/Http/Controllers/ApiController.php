@@ -42,6 +42,16 @@ class ApiController extends Controller
         $users = User::all();
         return response()->json(['users' => $users]);
     }
+    public function destroyPro($proId){
+        $product = Product::where('product_id',$proId);
+
+        if(!$product){
+            return response()->json(['message' => 'Category not found'], 404);
+        }
+        $product->delete();
+        return response()->json(['message' => 'Successfully delete category'], 200);
+        // return response()->json(['message' => 'User not found'], 404);
+    }
     public function destroyCat($catId){
         $category = Category::where('category_id',$catId);
 
@@ -53,7 +63,7 @@ class ApiController extends Controller
         // return response()->json(['message' => 'User not found'], 404);
     }
     public function destroyUser($userId){
-        $user = User::where('user_id',$userId);
+        $user = User::where('id',$userId);
 
         if(!$user){
             return response()->json(['message' => 'User not found'], 404);
@@ -87,6 +97,43 @@ class ApiController extends Controller
 
     // public function getStock()
     public function storeProduk(Request $request){
+        try{
+            $imageName = Str::random(32).".".$request->image->getClientOriginalExtension();
+            // $request->validate([
+            //     'name' => 'required',
+            //     'image' => 'required',
+            // ]);
+
+            // do{
+            //     $validUserId = uuid_create();
+            //     $userIdData = CekUuid::cekUserUuid($validUserId);
+            // }while($userIdData != null);
+            
+            $validMediaId = uuid_create();
+            $validProductId = uuid_create();
+            Product::create([
+                'product_id'=>$validProductId,
+                'product_name' => $request->name,
+                'description' => $request->desc,
+                'category_id' => $request->cat,
+                'brand_id' => $request->brand,
+                'product_price' => $request->price,
+                'product_stock' => $request->amount,
+                'sold_amount' => 0,
+            ]);
+            ProductMedia::create([
+                'media_id' => $validMediaId,
+                'media_file' => $imageName,
+                'product_id' => $validProductId,
+                'media_sequence' => 1,
+            ]);
+            Storage::disk('public')->put($imageName, file_get_contents($request->image));
+            return response()->json(['message' => 'Product created successfully'], 200);
+        }catch(\Exception $e){
+            return response()->json(['message' => 'Something went wrong'.$e->getMessage()], 500);
+        }
+    }
+    public function putProduk(Request $request){
         try{
             $imageName = Str::random(32).".".$request->image->getClientOriginalExtension();
             // $request->validate([

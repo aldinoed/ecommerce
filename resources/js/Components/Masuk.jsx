@@ -5,14 +5,10 @@ import { Link, Head } from "@inertiajs/react";
 import { useStateContext } from "@/contexts/ContextProvider";
 import Home from "@/Pages/Home";
 import { Navigate } from "react-router-dom";
-// import useCsrfToken from "./useCsrfToken";
+import useCsrfToken from "./useCsrfToken";
 
 export default function Masuk(){
-    // const {token} = useCsrfToken();
-    const {token} = useStateContext()
-    if(token){
-        window.location.href = ('/')
-    }
+    const {token} = useCsrfToken();
 
     const [data, setData] = useState({
         password: "",
@@ -31,19 +27,14 @@ export default function Masuk(){
         const formData = new FormData();
         formData.append('password', data.password);
         formData.append('email', data.email);
-
-            try{
-                let res = await axios.post('/masuk', formData)
-                if(res.status === 200){
-                    alert('Berhasil Masuk')
-                }
-            }catch(error){
-                if (error.response && error.response.data && error.response.data.message) {
-                    alert(error.response.data.message);
-                } else {
-                    console.log('Login gagal. Silakan coba lagi.'+ error);
-                }
-            }
+        axios.post('/masuk', formData)
+            .then(res => {
+                console.log('berhasil login' + res)
+                setTimeout(() => {
+                    window.location.href = '/admin/dashboard' 
+                }, 1000);})
+            .catch(err => console.log(err))
+        
     }
     return(
         <>
@@ -51,7 +42,7 @@ export default function Masuk(){
            {/* <meta name="_token" content={token} /> */}
         </Head>
         <form method="POST" action="/masuk" onSubmit={handleSubmit} className="mt-3 pt-5">
-            {/* <input type="hidden" name="_token" value={token}  /> */}
+            <input type="hidden" name="_token" value={token}  />
             <div className="mb-3">
                 <label className="form-label" forhtml="exampleInputEmail1">
                     Email

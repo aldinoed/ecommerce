@@ -44,7 +44,7 @@ class RegisteredUserController extends Controller
             'fullname' => $request->fullname,
             'password' => bcrypt($request->password),
             'email' => $request->email,
-            'user_role' => false,
+            'is_admin' => false,
         ]);
     
         UserId::create(

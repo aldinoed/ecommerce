@@ -15,7 +15,11 @@ import { Link, Head } from "@inertiajs/react";
 // import Categories from "@/Componensts/Categories";
 // import { Switch } from "@headlessui/react";
 
-export default function AdminHome(){
+export default function AdminHome(props){
+      const { flash } = props;
+      const user = flash ? flash.user : null;
+      // const { user } = props.flash;
+      // const user = flash;
     return (
       <>
       <Router>
@@ -92,7 +96,11 @@ export default function AdminHome(){
             <div className="container-fluid">
                   <div className="bar fixed-top shadow d-flex justify-content-between align-items-center" style={{height: "50px"}} data-bs-theme="dark">
                         <h4 className=" text-white mt-2">Computer Planet</h4>
-                        <p className="text-white mt-3"></p>
+                        {user ? (
+                              <p className="text-white mt-3">{user.email}</p>
+                              ) : (
+                              <p className="text-white mt-3">User not found</p>
+                              )}
                   </div>
 
                   <div className=" row">

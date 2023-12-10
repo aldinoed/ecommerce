@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Inertia\Response;
-use function Inertia\Inertia;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -29,22 +28,25 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request)
+    public function store(LoginRequest $request): RedirectResponse
     {
         $request->authenticate();
 
-        $request->session()->regenerate();
-
-        $userData = auth()->user();
-        echo $userData->getAuthIdentifier();
-        if($request->expectsJson()) {
-            return Inertia::render('Home', ['userData' => $userData->email]);
+        // $request->session()->regenerate();
+        // session()->flash('user', Auth::user());
+        // dd(session()->all());
+        // return redirect()->intended('/admin/dashboard')->with('user', Auth::user());
+        if (Auth::check()) {
+            // Authentication successful
+            $request->session()->regenerate();
+            session()->flash('user', Auth::user());
+            // dd(session()->all());
+            dump(Auth::user());
+            return redirect()->intended('/admin/dashboard')->with('user', Auth::user());
+        } else {
+            // Authentication failed
+            return redirect()->route('login');
         }
-        // return redirect()->intended('/admin');
-        // return redirect()->intended('/');
-        // return Inertia::render('Home', [
-        //     'userData' => $userData,
-        // ]);
     }
 
     /**

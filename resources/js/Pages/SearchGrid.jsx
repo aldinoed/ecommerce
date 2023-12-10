@@ -9,10 +9,7 @@ import MainNav from "../Components/MainNav";
 export default function SearchGrid(){
     return(
     <>
-    <div className="col-sm-2">
-        
-    </div>
-    <div className="col-sm-9 d-flex justify-content-center">
+    <div className="col-sm-8 d-flex justify-content-center">
     <div class="row row-cols-1 row-cols-md-2 g-4 ">
         <div className="col">
             <div className="card">

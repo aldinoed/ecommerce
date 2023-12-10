@@ -13,7 +13,7 @@ class User extends Model implements Authenticatable
     use AuthenticatableTrait;
     // use ;
     use HasFactory;
-    protected $fillable = ['id','email', 'username', 'fullname', 'password'];
+    protected $fillable = ['id','email', 'username', 'fullname', 'password', 'is_admin'];
     protected $amount_order = [
         'amount_order' => 0
     ];
@@ -36,4 +36,5 @@ class User extends Model implements Authenticatable
     public function loyalty(){
         return $this->belongsTo(UserLoyalty::class);
     }
+    
 }

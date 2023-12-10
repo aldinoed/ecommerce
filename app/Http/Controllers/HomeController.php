@@ -22,6 +22,9 @@ class HomeController extends Controller
         ]);
     }
 
+    public function user(){
+        return Inertia::render('UserDashboard');
+    }
     public function searchProduct(){
         // return Inertia::render
     }

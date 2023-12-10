@@ -3,6 +3,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import $ from 'jquery';
 import React from "react";
+
 export default function ProductView(){
     const [amount, setAmount] = React.useState(1);
     const addAmount = ()=> { setAmount(amount + 1) }
@@ -57,7 +58,7 @@ export default function ProductView(){
             <div className="container shadow card p-4" style={{marginTop:"6%", minHeight:"40vh", maxWidth:"83%", border : "none"}}>
                 <div className="rounded-2  row p-4" style={{minHeight:"100%"}}>
                     <div style={{maxHeight:"63vh", maxWidth:"70vh", padding: "0px !important"}} className="rounded-2 shadow col-sm-6 d-flex justify-content-center align-items-center">
-                        <img src={`http://127.0.0.1:8000/storage/${media.media_file}`} style={{objectFit:"cover", minWidth:"90%", height: "auto"}} alt="" />
+                        <img src={`http://127.0.0.1:8000/storage/${media.media_file}`} style={{objectFit:"contain", maxWidth:"90%", height: "auto"}} alt="" />
                     </div>
                     <div className="col-sm-6 ms-4 ps-5">
                         <div className="row">
@@ -115,11 +116,11 @@ export default function ProductView(){
                     </div>
                     <div className="row pt-5" >
                         <h3 className="text-center" id="rating">Rating</h3>
-                        <p className="mt-4 j">5</p>
+                        <p className="mt-4 fs-3 fw-bold">Tidak Ada Data</p>
                     </div>
                     <div className="row pt-5" >
                         <h3 className="text-center" id="review">Review</h3>
-                        <p className="mt-4 j">{product.description}</p>
+                        <p className="mt-4 j">Tidak Ada Data</p>
                     </div>
                 </div>
             </div>

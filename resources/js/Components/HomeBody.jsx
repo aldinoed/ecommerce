@@ -107,8 +107,8 @@ export default function HomeBody({userData}){
                                 <div className="row ">
                                 <div className="scrollcards d-flex align-items-center ps-5 pe-5 overflow-x-hidden">
                                     {Array.isArray(brands) && brands.map(brand => (
-                                    <div className="card cardBrand justify-content-center d-flex align-items-center">
-                                        <a href={'/category/'+brand.brand_name}><img style={{maxWidth:"10vh"}} className="card-img-top " src={'http://127.0.0.1:8000/storage/'+brand.brand_image}/></a>
+                                    <div className="card cardBrand justify-content-center d-flex align-items-center"key={brand.brand_id}>
+                                        <a href={'/category/'+brand.brand_name}><img style={{maxWidth:"10vh"}} className="card-img-top " src={'http://127.0.0.1:8001/storage/'+brand.brand_image}/></a>
                                     </div>
                                     ))}            
                                 </div>
@@ -125,8 +125,8 @@ export default function HomeBody({userData}){
                                 <div className="row ">
                                 <div className="scrollcards d-flex align-items-center ps-5 pe-5 overflow-x-hidden">
                                     {Array.isArray(brands) && brands.map(brand => (
-                                    <div className="card cardBrand justify-content-center d-flex align-items-center">
-                                        <a href={'/category/'+brand.brand_name}><img style={{maxWidth:"10vh"}} className="card-img-top " src={'http://127.0.0.1:8000/storage/'+brand.brand_image}/></a>
+                                    <div className="card cardBrand justify-content-center d-flex align-items-center" key={brand.brand_id}>
+                                        <a href={'/category/'+brand.brand_name}><img style={{maxWidth:"10vh"}} className="card-img-top " src={'http://127.0.0.1:8001/storage/'+brand.brand_image}/></a>
                                     </div>
                                     ))}            
                                 </div>

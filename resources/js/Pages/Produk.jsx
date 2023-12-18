@@ -22,11 +22,11 @@ export default function Produk(){
     const handleDelete = async(proId) => {
         // console.log(userId)
         try{
-            let res =  await axios.delete(`/api/delete-produk/${proId}`);
+            let res =  await axios.delete(`/api/delete-product/${proId}`);
             if (res.status === 200) {
                 alert(res.data.message)
-                const newProductData = cats.filter((item)=>item.product_id !== proId)
-                setCats(newProductData)
+                const newProductData = products.filter((item)=>item.product_id !== proId)
+                setProducts(newProductData)
                 // alert('Error deleting category. Check console for details.');
             }else{
                 console.error('Error deleting category:', res.data.message);
@@ -34,7 +34,7 @@ export default function Produk(){
             console.error('Error deleting category:', error);
             alert('Error deleting category. Check console for details.');
         }
-        };
+    };
     return(
         <>
         {/* <div className="col-9 ms-auto me-auto bg-white rounded-2 pt-3 " style={{maxHeight:"80vh", marginTop: "30px"}}> */}
@@ -63,11 +63,11 @@ export default function Produk(){
                         {Array.isArray(products) && products.map((product)=>(
                         <tr key={i++}>
                             <td>{i++}</td>
-                            <td style={{maxWidth:"200px"}}>{product.product_name}</td>
+                            <td style={{maxWidth:"200px"}}>{product.product_name.slice(0,27)+'...'}</td>
                             <td>Rp. {product.product_price}</td>
                             <td>{product.product_stock}</td>
                             <td className="ps-5">{product.sold_amount}</td>
-                            <td className="d-flex justify-content-start" style={{minHeight:"102px", minWidth:"100px"}}>
+                            <td className="d-flex justify-content-start" style={{ minWidth:"100px"}}>
                                 <form method="GET" action={`/admin/produk/${product.product_id}`}>
                                     <button className="btn btn-success" >
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-eye" viewBox="0 0 16 16">
@@ -87,8 +87,9 @@ export default function Produk(){
                                 </a>
                                     
                                 {/* </form> */}
-                                    <button className="btn btn-danger" name="delete" onClick={()=>handleDelete(product.product_name)}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="currentColor" className="bi bi-trash" viewBox="0 0 16 16">
+
+                                    <button className="btn btn-danger" name="delete" onClick={()=>handleDelete(product.product_id)}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-trash" viewBox="0 0 16 16">
                                         <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
                                         <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
                                     </svg>

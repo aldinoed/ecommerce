@@ -17,6 +17,7 @@ export default function FormInputProduk(){
     const[selectedCategory, setSelectedCategory] = useState('')
     const[selectedBrands, setSelectedBrands] = useState('')
     const[amount, setAmount] = useState('')
+    const[weight, setWeight] = useState('')
     const[price, setPrice] = useState('')
 
     const [cats, setCats] = useState([])
@@ -50,6 +51,7 @@ export default function FormInputProduk(){
         formData.append('brand', selectedBrands);
         formData.append('image',fileImage);
         formData.append('price',price);
+        formData.append('weight',weight);
         formData.append('amount',amount);
         let responce = await axios.post('/api/input-produk', formData, {headers:{'Content-Type':'multipart/form-data'}})
 
@@ -120,6 +122,10 @@ export default function FormInputProduk(){
                         <div className="mt-3">
                             <label htmlFor=" floatingInputGrid">Jumlah</label>
                             <input className="form-control" type="number" placeholder="" aria-label="" name="amount" onChange={(e)=>setAmount(e.target.value)}/>
+                        </div>
+                        <div className="mt-3">
+                            <label htmlFor=" floatingInputGrid">Berat</label>
+                            <input className="form-control" type="number" placeholder="" aria-label="" name="weight" onChange={(e)=>setWeight(e.target.value)}/>
                         </div>
                         <div className="mt-3">
                             <label htmlFor=" floatingInputGrid">Harga Produk</label>

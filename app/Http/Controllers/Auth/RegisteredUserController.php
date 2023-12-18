@@ -22,7 +22,7 @@ class RegisteredUserController extends Controller
      */
     public function create(): Response
     {
-        return Inertia::render('Auth/Register');
+        return Inertia::render('Auth/Daftar');
     }
 
     /**
@@ -46,15 +46,12 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'is_admin' => false,
         ]);
-    
-        UserId::create(
-            ['user_id' => $validUserId,]
-        );
 
         event(new Registered($user));
 
-        Auth::login($user);
+        // Auth::login($user);
+        // $accessToken = $user->createToken('authTOken')
 
-        return redirect(RouteServiceProvider::HOME);
+        return redirect('/masuk');
     }
 }

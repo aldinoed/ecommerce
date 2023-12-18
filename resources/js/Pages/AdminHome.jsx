@@ -11,15 +11,19 @@ import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 
 // import MainNav from "../Components/MainNav";
 
-import { Link, Head } from "@inertiajs/react";
+import { Link, Head, useForm } from "@inertiajs/react";
 // import Categories from "@/Componensts/Categories";
 // import { Switch } from "@headlessui/react";
 
-export default function AdminHome(props){
-      const { flash } = props;
-      const user = flash ? flash.user : null;
-      // const { user } = props.flash;
-      // const user = flash;
+export default function AdminHome({auth}){
+      const {data, setData, post, processing, errors, reset} = useForm({
+            email : auth.user.email,
+      })
+      console.log(auth)
+      const logout = (e) =>{
+            e.preventDefault();
+            post(route('logout'))
+      }
     return (
       <>
       <Router>
@@ -96,8 +100,8 @@ export default function AdminHome(props){
             <div className="container-fluid">
                   <div className="bar fixed-top shadow d-flex justify-content-between align-items-center" style={{height: "50px"}} data-bs-theme="dark">
                         <h4 className=" text-white mt-2">Computer Planet</h4>
-                        {user ? (
-                              <p className="text-white mt-3">{user.email}</p>
+                        {auth ? (
+                              <p className="text-white mt-3">{auth.user.email}</p>
                               ) : (
                               <p className="text-white mt-3">User not found</p>
                               )}
@@ -144,13 +148,14 @@ export default function AdminHome(props){
                                           </span><a className="text-white align-items-center" href="/admin/categories">&#160;&#160;Data Kategori</a>
                                     </div>
                                     <br />
-                                    <div method="post" className="ps-5 d-flex justify-content-center fitur" style={{paddingRight: "90px"}}>
-                                          <a name="logout" type="submit" className=" btn text-white d-flex align-items-center justify-content-center" style={{borderRadius:"0px", height:"50px",width: "100%"}} href="../proyek/login/">
+                                    <form method="POST" action="/masuk"  onSubmit={logout} className="ps-5 d-flex justify-content-center fitur" style={{paddingRight: "90px"}}>
+                                          <input type="hidden" value={auth.user.email} />
+                                          <button  name="logout" type="submit" className=" btn text-white d-flex align-items-center justify-content-center" style={{borderRadius:"0px", height:"50px",width: "100%"}} href="../proyek/login/">
                                                 <span className="material-symbols-outlined">
                                                       logout
                                                 </span>&#160;&#160;Logout
-                                          </a>
-                                    </div>
+                                          </button>
+                                    </form>
                               </div>
                         </div>
                         <div className="col-9  p-4 ms-auto me-auto bg-white rounded-2 pt-3 " style={{maxHeight:"76vh",marginTop: "80px"}}>

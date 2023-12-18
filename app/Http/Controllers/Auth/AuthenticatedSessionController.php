@@ -19,7 +19,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(): Response
     {
-        return Inertia::render('Auth/Login', [
+        return Inertia::render('Autentikasi', [
             'canResetPassword' => Route::has('password.request'),
             'status' => session('status'),
         ]);
@@ -30,23 +30,15 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-        $request->authenticate();
+        $credentials = $request->only('email','password');
+        // $request->authenticate();
+        if(Auth::attempt($credentials)){
 
-        // $request->session()->regenerate();
-        // session()->flash('user', Auth::user());
-        // dd(session()->all());
-        // return redirect()->intended('/admin/dashboard')->with('user', Auth::user());
-        if (Auth::check()) {
-            // Authentication successful
             $request->session()->regenerate();
-            session()->flash('user', Auth::user());
-            // dd(session()->all());
-            dump(Auth::user());
-            return redirect()->intended('/admin/dashboard')->with('user', Auth::user());
-        } else {
-            // Authentication failed
-            return redirect()->route('login');
+            return redirect()->intended(RouteServiceProvider::HOME);
         }
+        return redirect('/masuk');
+
     }
 
     /**

@@ -58,7 +58,7 @@ export default function ProductView(){
             <div className="container shadow card p-4" style={{marginTop:"6%", minHeight:"40vh", maxWidth:"83%", border : "none"}}>
                 <div className="rounded-2  row p-4" style={{minHeight:"100%"}}>
                     <div style={{maxHeight:"63vh", maxWidth:"70vh", padding: "0px !important"}} className="rounded-2 shadow col-sm-6 d-flex justify-content-center align-items-center">
-                        <img src={`http://127.0.0.1:8000/storage/${media.media_file}`} style={{objectFit:"contain", maxWidth:"90%", height: "auto"}} alt="" />
+                        <img src={`http://127.0.0.1:8001/storage/${media.media_file}`} style={{objectFit:"contain", maxWidth:"90%", height: "auto"}} alt="" />
                     </div>
                     <div className="col-sm-6 ms-4 ps-5">
                         <div className="row">

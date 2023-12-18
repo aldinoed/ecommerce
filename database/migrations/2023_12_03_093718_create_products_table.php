@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('brand_id');
             $table->double('product_price');
             $table->integer('product_stock');
+            $table->double('product_weight');
             $table->integer('sold_amount');
             $table->timestamps();
             $table->foreign('category_id')->references('category_id')->on('categories');

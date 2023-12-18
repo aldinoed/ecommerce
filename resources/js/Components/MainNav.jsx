@@ -5,19 +5,20 @@ import "../../css/my.css";
 
 import { usePage } from "@inertiajs/inertia-react";
 import { useState, useEffect } from "react";
-import useCsrfToken from "../Components/useCsrfToken";
+import useCsrfToken from "./useCsrfToken";
 
 import { Link, Head } from "@inertiajs/react";
 
-export default function MainNav({isAuthenticated}) {
+export default function MainNav(props) {
     const {token} = useCsrfToken();
     const[search, setSearch] = useState('')
+    console.log(props)
     // const { url } = usePage();
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Redirect to the search page with the entered search term
-        window.location.href = `/search/${search}`;
-      };
+    // const handleSubmit = (e) => {
+    //     e.preventDefault();
+    //     // Redirect to the search page with the entered search term
+    //     window.location.href = `/search/${search}`;
+    //   };
     return (
         <>
             <div className="container-fluid bg-white border-bottom pb-4 pt-3 shadow fixed-top">
@@ -103,21 +104,11 @@ export default function MainNav({isAuthenticated}) {
                             </svg>
                         </a>
                     </div>
-                    {!isAuthenticated ? (
-                    <>
-                        <div className="col-2 d-flex justify-content-evenly">
-                        {/* <form className="d-flex justify-content-evenly"> */}
-                            <div className="btn border bg-white"><a href="/masuk" className="text-black">Masuk</a></div>
-                            <div className="btn bg-primary"><a href="/daftar" className="text-white">Daftar</a></div>
-                        {/* </form> */}
+                    <div className="col-2 d-flex justify-content-evenly">                
+                        <div className="btn border bg-white"><a href={route('masuk')} className="text-black">Masuk</a></div>
+                        <div className="btn bg-primary"><a href={route('daftar')} className="text-white">Daftar</a></div>
                     </div>
-                    </>
-                ) : (
-                    <>
-                    <h2>halo</h2>
-                    </>
-                )}
-                    
+                    {/* <h2>{props.auth.user}</h2> */}
                 </div>
             </div>
         </>

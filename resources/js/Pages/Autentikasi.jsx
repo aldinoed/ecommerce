@@ -2,7 +2,7 @@ import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "../../css/app.css";
 import "../../css/my.css";
 import Masuk from '../Components/Masuk';
-import Daftar from '../Components/Daftar';
+import Daftar from './Auth/Daftar';
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Link, Head } from "@inertiajs/react";
@@ -40,7 +40,8 @@ export default function Autentikasi() {
                         </Routes>
                         <Routes>
                             <Route path="/masuk" element={<Masuk/>}></Route>
-                            <Route path="/daftar" element={<Daftar/>}></Route>
+                            {/* <Route path="/daftar" element={<Daftar/>}></Route> */}
+                            <Route path="/daftar" element={<Head title="Daftar" />}></Route>
                         </Routes>
                     </div>
                 </div>

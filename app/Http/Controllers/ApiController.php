@@ -43,11 +43,15 @@ class ApiController extends Controller
         return response()->json(['users' => $users]);
     }
     public function destroyPro($proId){
+        $image = ProductMedia::where('product_id', $proId);
         $product = Product::where('product_id',$proId);
 
         if(!$product){
-            return response()->json(['message' => 'Category not found'], 404);
+            return response()->json(['message' => 'Product not found'], 404);
         }
+        if($image){
+            $image->delete();
+       }
         $product->delete();
         return response()->json(['message' => 'Successfully delete category'], 200);
         // return response()->json(['message' => 'User not found'], 404);
@@ -119,6 +123,7 @@ class ApiController extends Controller
                 'brand_id' => $request->brand,
                 'product_price' => $request->price,
                 'product_stock' => $request->amount,
+                'product_weight' => $request->wieght,
                 'sold_amount' => 0,
             ]);
             ProductMedia::create([

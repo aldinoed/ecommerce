@@ -20,7 +20,7 @@ export default function Home({users, user}) {
         <>
         <Router>
             <Head title="Situs Toko Komputer Terlengkap & Termurah"></Head>
-            <MainNav isAuthenticated={user}></MainNav>
+            <MainNav></MainNav>
             <h1></h1>
             <div className="container-fluid pt-5 ">
             <Routes>

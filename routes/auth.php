@@ -17,10 +17,8 @@ Route::middleware('guest')->group(function () {
     Route::post('daftar', [RegisteredUserController::class, 'store']);
 
     Route::get('masuk', [AuthenticatedSessionController::class, 'create'])->name('masuk');
-    // Route::get('masuk', [AuthController::class, 'login'])
-    //             ->name('login');
+    
     Route::post('masuk', [AuthenticatedSessionController::class, 'store']);
-    // Route::post('masuk', [AuthController::class, 'authenticate']);
 
     Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
                 ->name('password.request');

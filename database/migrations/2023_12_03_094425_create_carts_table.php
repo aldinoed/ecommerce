@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('user_id');
             $table->string('product_id');
             $table->integer('quantity');
-            $table->double('total');
             $table->string('order_id')->nullable();
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users');

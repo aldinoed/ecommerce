@@ -2,16 +2,29 @@ import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "../../css/app.css";
 import "../../css/my.css";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Link, Head } from "@inertiajs/react";
 import TransactionHeader from "@/Components/TransactionHeader";
+import axios from "axios";
 
-export default function Keranjang(namaProduk, harga, stok, namaBrand) {
+export default function Keranjang({auth}) {
     const [amount, setAmount] = React.useState(1);
+    const [carts, setCarts] = React.useState('')
     const addAmount = ()=> { setAmount(amount + 1) }
     const reduceAmount = () => { if(amount > 1){ setAmount(amount - 1)} }
     
+    useEffect(()=>{
+        axios.get('/api/carts-data/'+auth.user.id)
+            .then(res => setCarts(res))
+            .catch(err => console.log(err))
+    })
+    
+    useEffect(()=>{
+        axios.get('/api/user-data/'+auth.user.email)
+            .then(res => console.log(res))
+            .catch(err => console.log(err))
+    }, [])
     return (
         <>
             <Head title="keranjang">
@@ -36,14 +49,14 @@ export default function Keranjang(namaProduk, harga, stok, namaBrand) {
                 <div className="row mt-4">
                     <div className="form-check">
                         <input
-                            class="form-check-input ms-1"
+                            className="form-check-input ms-1"
                             type="checkbox"
                             value=""
                             id="defaultCheck1"
                         />
                         <label
                             className="form-check-label ms-2"
-                            for="defaultCheck1"
+                            htmlFor="defaultCheck1"
                         >
                             Pilih semua
                         </label>
@@ -51,15 +64,15 @@ export default function Keranjang(namaProduk, harga, stok, namaBrand) {
                 </div>
                 <div className="row d-flex justify-content-between">
                     <div className="col-md-8 pt-3">
-                        <div className="card shadow border-delete bg-body-tertiary">
-                            <div class="ps-3 pt-3">
+                        {Array.isArray(carts) && carts.map(cart => (<div className="card shadow border-delete bg-body-tertiary">
+                            <div className="ps-3 pt-3">
                                 <input
-                                    class="form-check-input"
+                                    className="form-check-input"
                                     type="checkbox"
                                     value=""
                                     id="defaultCheck1"
                                 />
-                                &#160; Brand
+                                &#160; {axios.get('/api/products-data/'+cart.product_id)}
                             </div>
                             <div className="card-body">
                                 <div className="product-canvas p-1 bg-body-secondary rounded">
@@ -81,24 +94,24 @@ export default function Keranjang(namaProduk, harga, stok, namaBrand) {
                                             <div className="row">Rp. 15000</div>
                                         </div>
                                         <div className="col-3 d-flex align-items-end pb-2">
-                                            <span class="material-symbols-outlined tombol cart-button-hover ">
+                                            <span className="material-symbols-outlined tombol cart-button-hover ">
                                                 delete
                                             </span>
                                             &#160;&#160;&#160;&#160;&#160;
-                                            <span onClick={reduceAmount} class="material-symbols-outlined tombol cart-button-hover">
+                                            <span onClick={reduceAmount} className="material-symbols-outlined tombol cart-button-hover">
                                                 do_not_disturb_on
                                             </span>
                                             <span className="ms-4 me-4">
                                                 {amount}
                                             </span>
-                                            <span onClick={addAmount} class="material-symbols-outlined tombol cart-button-hover">
+                                            <span onClick={addAmount} className="material-symbols-outlined tombol cart-button-hover">
                                                 add_circle
                                             </span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>))}
                     </div>
                     <div className="col-md-4 p-3">
                         <div
@@ -126,7 +139,7 @@ export default function Keranjang(namaProduk, harga, stok, namaBrand) {
                                     </div>
                                 </div>
                                 <div className="kolom-harga d-flex justify-content-between">
-                                    <p class="card-text">
+                                    <p className="card-text">
                                         <b>Total Harga</b>
                                     </p>
                                     <p>Rp. 300000,-</p>

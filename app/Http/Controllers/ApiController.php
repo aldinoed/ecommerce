@@ -12,12 +12,21 @@ use App\Models\Product;
 use App\Models\ProductMedia;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Cart;
 
 class ApiController extends Controller
 {
-    public function specificProduct($productName){
-        $product = Product::where("product_name", $productName)->join('product_brands', 'products.brand_id', '=', 'product_brands.brand_id')->first();
-        $productMedia = Product::where("product_name", $productName)->join('product_media', 'products.product_id', '=','product_media.product_id')->first();
+    public function carts($userId){
+        $carts = Cart::where('user_id', $userId)->get();
+        if($carts){
+             return response()->json(['carts' => $carts]);
+        }else{
+            return response()->json(['message' => 'Data keranjang tidak ditemukan']);
+        }
+    }
+    public function specificProduct($productId){
+        $product = Product::where('product_id', $productId)->join('product_brands', 'products.brand_id', '=', 'product_brands.brand_id')->first();
+        $productMedia = ProductMedia::where('product_id', $productId)->first();
         
         if(!$product || !$productMedia) {
             return response()->json(['message' => 'Product not found'], 404);
@@ -41,6 +50,10 @@ class ApiController extends Controller
     public function users(){
         $users = User::all();
         return response()->json(['users' => $users]);
+    }
+    public function specificUser($email){
+        $user = User::where('email', $email)->first();
+        return response()->json(['user' => $user]);
     }
     public function destroyPro($proId){
         $image = ProductMedia::where('product_id', $proId);
@@ -67,7 +80,7 @@ class ApiController extends Controller
         // return response()->json(['message' => 'User not found'], 404);
     }
     public function destroyUser($userId){
-        $user = User::where('id',$userId);
+        $user = User::where('user_id',$userId);
 
         if(!$user){
             return response()->json(['message' => 'User not found'], 404);
@@ -123,7 +136,7 @@ class ApiController extends Controller
                 'brand_id' => $request->brand,
                 'product_price' => $request->price,
                 'product_stock' => $request->amount,
-                'product_weight' => $request->wieght,
+                'product_weight' => $request->weight,
                 'sold_amount' => 0,
             ]);
             ProductMedia::create([

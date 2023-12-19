@@ -9,6 +9,8 @@ class Cart extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['cart_id', 'user_id', 'product_id', 'quantity', 'order_id'];
+
     protected $defaultCart = [
         "order_id" => null,
     ];

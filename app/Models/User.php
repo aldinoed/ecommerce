@@ -16,9 +16,9 @@ class User extends Model implements Authenticatable
     // use ;
     use HasFactory;
     protected $fillable = ['id','email', 'username', 'fullname', 'password', 'is_admin'];
-    protected $amount_order = [
-        'amount_order' => 0
-    ];
+    protected $primaryKey = 'id';
+    public $incrementing = false; 
+    public $keyType = 'string';
     public function userLocations(){
         return $this->hasMany(UserLocation::class);
     }

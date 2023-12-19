@@ -4,17 +4,19 @@ import { useParams } from "react-router-dom";
 import $ from 'jquery';
 import React from "react";
 
-export default function ProductView(){
+export default function ProductView({auth}){
     const [amount, setAmount] = React.useState(1);
     const addAmount = ()=> { setAmount(amount + 1) }
     const reduceAmount = () => { if(amount > 1){ setAmount(amount - 1)} }
+    const [userId, setUserId] = useState('');
     const [product, setProduct] = useState('');
     const [media, setMedia] = useState('');
     // setProduct(1);
-    const {productName} = useParams();
+    const {productId} = useParams();
     useEffect(()=>{
-        axios.get('/api/products-data/'+productName)
-            .then(res=>{setProduct(res.data.product);
+        axios.get(`/api/products-data/${productId}`)
+            .then(res=>{
+                setProduct(res.data.product);
                 setMedia(res.data.media)
                 console.log(res.data)
                 })
@@ -53,6 +55,14 @@ export default function ProductView(){
     //         });
     //     }
     // };
+    console.log(auth)
+    const addToCart = (productId) => {
+        if(auth === null){
+            window.location.href = '/masuk'
+        }else{
+            setUserId(auth.user.user_id)
+        }
+    }
     return(
         <>
             <div className="container shadow card p-4" style={{marginTop:"6%", minHeight:"40vh", maxWidth:"83%", border : "none"}}>
@@ -63,7 +73,7 @@ export default function ProductView(){
                     <div className="col-sm-6 ms-4 ps-5">
                         <div className="row">
                                 {product === null ? <span className="fw-light fs-5 placeholder col-12">
-                                </span> :  <img src={`http://127.0.0.1:8000/storage/${product.brand_image}`} style={{maxHeight:"3%", maxWidth:"30%"}}/>}
+                                </span> :  <img src={`http://127.0.0.1:8001/storage/${product.brand_image}`} style={{maxHeight:"3%", maxWidth:"30%"}}/>}
                         </div>
                         <div className="row mt-4" >
                             <p className="placeholder-glow fw-light fs-5">
@@ -92,7 +102,7 @@ export default function ProductView(){
                             <button style={{height: "50px"}} className="me-3 col-5 p-2 btn btn-primary">
                                 Beli Sekarang
                             </button>
-                            <button style={{height: "50px"}} className="col-6 p-2 btn btn-white border">
+                            <button onClick={()=>addToCart(product.product_id)} style={{height: "50px"}} className="col-6 p-2 btn btn-white border">
                                 Tambah ke Keranjang
                             </button>
                         </div>

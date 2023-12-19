@@ -43,23 +43,17 @@ Route::get('/admin/input-brand', [AdminController::class,'brandMan']);
 Route::post('/api/input-brand', [ApiController::class,'storeBrand']);
 Route::get('/api/categories-data', [ApiController::class,'categories']);
 Route::get('/api/brands-data', [ApiController::class,'brands']);
+Route::get('/api/brands-data/{proId}', [ApiController::class,'specificBrand']);
 Route::get('/admin/categories', [AdminController::class,'indexCat']);
 Route::get('/admin/input-cat', [AdminController::class,'catMan']);
 Route::post('/admin/input-cat', [AdminController::class,'storeCat']);
 Route::get('/admin/user', function () {return Inertia::render('AdminHome');});
 Route::delete('/api/delete-product/{proId}', [ApiController::class,'destroyPro']);
 Route::delete('/api/delete-category/{catId}', [ApiController::class,'destroyCat']);
+Route::get('/api/carts-data/{userId}', [ApiController::class,'carts']);
 Route::get('/api/users-data', [ApiController::class,'users']);
+Route::get('/api/user-data/{email}', [ApiController::class,'specificUser']);
 Route::delete('/api/delete-user/{userId}', [ApiController::class,'destroyUser']);
-
-// Route::get('/masuk', function(){
-//     return Inertia::render('Autentikasi');
-    // , ['canLogin' => Route::has('login'),
-    //     'canRegister' => Route::has('register'),
-    //     'laravelVersion' => Application::VERSION,
-    //     'phpVersion' => PHP_VERSION,
-    // ]);
-// });
 
 // Route::get('/dashboard', function () {
 //     return Inertia::render('Welcome', [
@@ -83,8 +77,8 @@ Route::get('/sanctum/csrf-token', function(){
 
 Route::get('/user/{userFullname}', [HomeController::class, 'user']);
 Route::get('/search/{params}', [HomeController::class, 'home']);
-Route::get('/product/{produkId}', [HomeController::class, 'specificProduct']);
-Route::get('/api/products-data/{productName}', [ApiController::class, 'specificProduct']);
+Route::get('/product/{productId}', [HomeController::class, 'specificProduct']);
+Route::get('/api/products-data/{productId}', [ApiController::class, 'specificProduct']);
 Route::get('/keranjang', function () {
     return Inertia::render('Keranjang' );
 })->middleware('auth');
@@ -104,7 +98,7 @@ Route::get('/keranjang', function () {
 
 Route::get('/admin/dashboard', function () {
    
-        return Inertia::render('AdminHome');
+    return Inertia::render('AdminHome');
    
 })->middleware(['auth'])->name('dashboard');
 Route::middleware('auth')->group(function () {

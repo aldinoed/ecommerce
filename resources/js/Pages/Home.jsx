@@ -27,7 +27,7 @@ export default function Home({users, user}) {
                 <Route path="/" element={<HomeBody user={user}/>}/>
                 <Route path="/search" element={<SearchGrid/>}></Route>
                 <Route path="/keranjang" element={<Keranjang/>}></Route>
-                <Route path="/:productName" element={<ProductView/>}></Route>
+                <Route path="/product/:productId" element={<ProductView/>}></Route>
             </Routes>
             </div>
         </Router>

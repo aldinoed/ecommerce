@@ -39,7 +39,7 @@ class RegisteredUserController extends Controller
         // ]);
         $validUserId = uuid_create();
         $user = User::create([
-            'id'=>$validUserId,
+            'id' => $validUserId,
             'username' => $request->username,
             'fullname' => $request->fullname,
             'password' => bcrypt($request->password),

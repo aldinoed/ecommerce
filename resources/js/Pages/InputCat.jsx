@@ -2,6 +2,8 @@ import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "../../css/app.css";
 import "../../css/my.css";
 
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 import { useState, useEffect } from "react";
 import useCsrfToken from "../Components/useCsrfToken";
 // import MainNav from "../Components/MainNav";
@@ -32,27 +34,41 @@ export default function InputBrand(){
         axios.post('/admin/input-cat', formData)
             .then((response)=>{
                 if(response.status === 200){
-                    alert('Berhasil Input Category')
+                    Swal.fire({
+                        title : 'Berhasil Input Kategori!',
+                        // text : 'Input Kategori Berhasil!',
+                        icon : 'success',
+
+                    })
                 }
             })
             .catch((error)=>{
                 if (error.response && error.response.data && error.response.data.message) {
                     // Access the error message from the response
-                    alert(error.response.data.message);
+                    Swal.fire({
+                        title : 'Error : ' + error.response.data.message,
+                        icon : 'error',
+
+                    })
                 } else {
                     // If the error structure is different, just show a generic error
-                    alert('Input Category gagal. Silakan coba lagi.');
+                    Swal.fire({
+                        title : 'Gagal Input Kategori',
+                        icon : 'error',
+
+                    })
+                    // alert( Silakan coba lagi.');
                 }
             })
     }
     return(
         <>
-        <Head title="Input Brand"></Head>
+        <Head title="Input Kategori"></Head>
         <div className="p-3 mb-2" style={{marginTop:"14%"}}>
             <div className="align-self-center ">
                 <form style={{maxHeight: "100vh", width: "60%"}} className="p-4 m-auto shadow rounded bg-white" method="POST" action="/admin/input-cat" onSubmit={handleSubmit}>
                     <input type="hidden" value={token} name="_token" />
-                    <p className="text-center fs-2">Input Data Category</p>
+                    <p className="text-center fs-2">Input Data Kategori</p>
                     <div className="row mt-3 d-flex justify-content-center">
                         <div className="col-md">
                             <div>

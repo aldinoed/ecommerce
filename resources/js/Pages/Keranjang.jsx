@@ -10,21 +10,22 @@ import axios from "axios";
 
 export default function Keranjang({auth}) {
     const [amount, setAmount] = React.useState(1);
-    const [carts, setCarts] = React.useState('')
+    const [carts, setCarts] = React.useState('');
+    const [product, setProduct] = React.useState('');
     const addAmount = ()=> { setAmount(amount + 1) }
     const reduceAmount = () => { if(amount > 1){ setAmount(amount - 1)} }
     
     useEffect(()=>{
         axios.get('/api/carts-data/'+auth.user.id)
-            .then(res => setCarts(res))
+            .then(res => setCarts(res.data.carts))
             .catch(err => console.log(err))
     })
     
-    useEffect(()=>{
-        axios.get('/api/user-data/'+auth.user.email)
-            .then(res => console.log(res))
-            .catch(err => console.log(err))
-    }, [])
+    // useEffect(()=>{
+    //     axios.get('/api/user-data/'+auth.user.email)
+    //         .then(res => console.log(res))
+    //         .catch(err => console.log(err))
+    // }, [])
     return (
         <>
             <Head title="keranjang">
@@ -64,7 +65,8 @@ export default function Keranjang({auth}) {
                 </div>
                 <div className="row d-flex justify-content-between">
                     <div className="col-md-8 pt-3">
-                        {Array.isArray(carts) && carts.map(cart => (<div className="card shadow border-delete bg-body-tertiary">
+                        {Array.isArray(carts) && carts.map(cart => (
+                        <div key={cart.cart_id} className="card shadow border-delete bg-body-tertiary">
                             <div className="ps-3 pt-3">
                                 <input
                                     className="form-check-input"
@@ -72,7 +74,11 @@ export default function Keranjang({auth}) {
                                     value=""
                                     id="defaultCheck1"
                                 />
-                                &#160; {axios.get('/api/products-data/'+cart.product_id)}
+                                &#160; {
+                                    axios.get('/api/products-data/'+cart.product_id)
+                                            .then(res => console.log(res))
+                                            .catch(err => console.log(err))
+                                    }
                             </div>
                             <div className="card-body">
                                 <div className="product-canvas p-1 bg-body-secondary rounded">

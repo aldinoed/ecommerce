@@ -19,7 +19,6 @@ export default function AdminHome({auth}){
       const {data, setData, post, processing, errors, reset} = useForm({
             email : auth.user.email,
       })
-      console.log(auth)
       const logout = (e) =>{
             e.preventDefault();
             post(route('logout'))

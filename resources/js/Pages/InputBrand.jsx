@@ -2,33 +2,35 @@ import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "../../css/app.css";
 import "../../css/my.css";
 
+import Swal from "sweetalert2";
 import { useState, useEffect } from "react";
 import useCsrfToken from "../Components/useCsrfToken";
-
 import { Link, Head } from "@inertiajs/react";
 
 export default function InputBrand(){
     const {token} = useCsrfToken();
-    // const handleChange = (e) => {
-    //     setData({
-    //         ...data,[e.target.name]: e.target.value
-    //     })
-    // }
 
     const[name, setName] = useState('')
     const[fileImage, setFileImage] = useState('')
 
     const uploadImage = async()=>{
-        // console.log(fileImage)
         const formData = new FormData();
         formData.append('name', name);
         formData.append('image',fileImage);
-        // // formData.append('_token', token);
-        // console.log(formData);
-        let responce = await axios.post('/api/input-brand', formData, {headers:{'Content-Type':'multipart/form-data'}})
+        let res = await axios.post('/api/input-brand', formData, {headers:{'Content-Type':'multipart/form-data'}})
 
-        if(responce){
-            alert('Berhasil input data brand')
+        if(res){
+            Swal.fire({
+                title : 'Berhasil!',
+                text : 'Berhasil Input Data Brand',
+                icon : 'success',
+            })
+        }else{
+            Swal.fire({
+                title : 'Error',
+                text : res.data.message,
+                icon : 'error',
+            })
         }
     }
 

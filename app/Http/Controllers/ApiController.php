@@ -67,7 +67,16 @@ class ApiController extends Controller
        }
         $product->delete();
         return response()->json(['message' => 'Successfully delete category'], 200);
-        // return response()->json(['message' => 'User not found'], 404);
+    }
+    
+    public function destroyBrand($brandId){
+        $brand = ProductBrand::where('brand_id', $brandId);
+
+        if(!$brand){
+            return response()->json(['message'=> 'Brand Data Not Found'], 404);
+        }
+        $brand->delete();
+        return response()->json(['message' => 'Successfully delete brand', 200]);
     }
     public function destroyCat($catId){
         $category = Category::where('category_id',$catId);
@@ -80,7 +89,7 @@ class ApiController extends Controller
         // return response()->json(['message' => 'User not found'], 404);
     }
     public function destroyUser($userId){
-        $user = User::where('user_id',$userId);
+        $user = User::where('id',$userId)->first();
 
         if(!$user){
             return response()->json(['message' => 'User not found'], 404);

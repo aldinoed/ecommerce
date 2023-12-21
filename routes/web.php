@@ -54,13 +54,14 @@ Route::get('/api/carts-data/{userId}', [ApiController::class,'carts']);
 Route::get('/api/users-data', [ApiController::class,'users']);
 Route::get('/api/user-data/{email}', [ApiController::class,'specificUser']);
 Route::delete('/api/delete-user/{userId}', [ApiController::class,'destroyUser']);
+Route::delete('/api/delete-brand/{brandId}', [ApiController::class,'destroyBrand']);
 
 // Route::get('/dashboard', function () {
 //     return Inertia::render('Welcome', [
 //         'canLogin' => Route::has('login'),
 //         'canRegister' => Route::has('register'),
 //     ]);
-// // });
+// });
 // Route::get('/masuk', [AuthController::class, 'login']);
 // Route::post('/masuk', [AuthenticatedSessionController::class,'store']);
 Route::get('/', function (){

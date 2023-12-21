@@ -3,6 +3,7 @@ import "../../css/app.css";
 import "../../css/my.css";
 import useCsrfToken from "@/Components/useCsrfToken";
 
+import Swal from "sweetalert2";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
@@ -23,19 +24,30 @@ export default function User(){
         let res =  await axios.delete(`/api/delete-user/${userId}`);
         try {
             if (res.status === 200) {
+                Swal.fire({
+                    title : 'Berhasil!',
+                    text : 'Berhasil Hapus Data User',
+                    icon : 'success',
+                })
                 const newUserData = users.filter((user)=>{
                     return(
                         user.id !== userId
                         )
                     })
                 setUsers(newUserData)
-                alert(res.data.message)
             }else{
-                    console.error('Error deleting user: ' + res.data.message);
-                };
-            } catch (error) {
-                
-                console.log('Error deleting user. Check console for details.', error);
+                Swal.fire({
+                    title : 'Error',
+                    text : res.data.message,
+                    icon : 'error',
+                })
+            };
+        } catch (error) {
+            Swal.fire({
+                title : 'Error',
+                text : error,
+                icon : 'error',
+            })
         }
     }
     return(

@@ -1,9 +1,10 @@
 import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "../../css/app.css";
 import "../../css/my.css";
-import axios from "axios";
 
+import axios from "axios";
 import { useState, useEffect } from "react";
+import Swal from "sweetalert2";
 
 export default function Categories(){
     let i = 1;
@@ -17,19 +18,28 @@ export default function Categories(){
             })
     }, [])
     const handleDelete = async(catId) => {
-        // console.log(userId)
         try{
             let res =  await axios.delete(`/api/delete-category/${catId}`);
             if (res.status === 200) {
-                alert(res.data.message)
+                Swal.fire({
+                    title : 'Berhasil!',
+                    text : 'Berhasil Hapus Data Kategori',
+                    icon : 'success',
+                })
                 const newCatData = cats.filter((item)=>item.category_id !== catId)
                 setCats(newCatData)
-                // alert('Error deleting category. Check console for details.');
             }else{
-                console.error('Error deleting category:', res.data.message);
+                Swal.fire({
+                    title : 'Error',
+                    text : res.data.message,
+                    icon : 'error',
+                })
         }}catch (error) {
-            console.error('Error deleting category:', error);
-            alert('Error deleting category. Check console for details.');
+            Swal.fire({
+                title : 'Error',
+                text : error,
+                icon : 'error',
+            })
         }
         };
     // }

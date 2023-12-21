@@ -3,7 +3,6 @@ import "../../css/app.css";
 import "../../css/my.css";
 
 import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
 import { useState, useEffect } from "react";
 import useCsrfToken from "../Components/useCsrfToken";
 // import MainNav from "../Components/MainNav";
@@ -35,8 +34,8 @@ export default function InputBrand(){
             .then((response)=>{
                 if(response.status === 200){
                     Swal.fire({
-                        title : 'Berhasil Input Kategori!',
-                        // text : 'Input Kategori Berhasil!',
+                        title : 'Berhasil!',
+                        text : 'Berhasil Input Kategori',
                         icon : 'success',
 
                     })
@@ -46,18 +45,18 @@ export default function InputBrand(){
                 if (error.response && error.response.data && error.response.data.message) {
                     // Access the error message from the response
                     Swal.fire({
-                        title : 'Error : ' + error.response.data.message,
+                        title : 'Error',
+                        text : error.response.data.message,
                         icon : 'error',
-
                     })
                 } else {
                     // If the error structure is different, just show a generic error
                     Swal.fire({
-                        title : 'Gagal Input Kategori',
+                        title : 'Gagal',
+                        text : 'Input Kategori Gagal, Silakan Coba Lagi',
                         icon : 'error',
 
                     })
-                    // alert( Silakan coba lagi.');
                 }
             })
     }

@@ -1,24 +1,51 @@
 import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "../../css/app.css";
 import "../../css/my.css";
+
+import Swal from "sweetalert2";
 import axios from "axios";
 import { useState, useEffect } from "react";
 
 export default function Brand(){
     const [brands, setBrands] = useState([])
     let i = 1;
-    // const res = axios.get('/brands')
     useEffect(()=>{
         axios.get('/api/brands-data')
             .then(res=>{
-                console.log(res.data); 
                 setBrands(res.data.brands)})
             .catch(error=>{
                 console.log('Error fetching data: ', error)
             })
     }, [])
     
-    // }
+    const handleDelete = async(brandId) => {
+        try {
+            let res = await axios.delete(`/api/delete-brand/${brandId}`)
+        
+            if(res.status === 200){
+                Swal.fire({
+                    title: 'Berhasil!',
+                    text : 'Berhasil Hapus Data Brand',
+                    icon : 'success'
+                })
+                const newBrandData = brands.filter((item)=>item.brand_id !== brandId)
+                setBrands(newBrandData)
+            }else{
+                Swal.fire({
+                    title : 'Something Went Wrong!',
+                    text : res.data.message,
+                    icon : 'error'
+                })
+            }
+        } catch (error) {
+            console.log(error)
+            // Swal.fire({
+            //     title : 'Error!',
+            //     text : error,
+            //     icon : 'error'
+            // })
+        }
+    }
     return(
     <>
     <div className="shadow p-3 rounded-2">
@@ -41,7 +68,7 @@ export default function Brand(){
         </thead>
         <tbody>
         {Array.isArray(brands) && brands.map(brand => (
-            <tr key={i} >
+            <tr key={i++} >
                 <td>{i++}</td>
                 <td>{brand.brand_name}</td>
                 <td className="" ><img className="" src={'http://127.0.0.1:8001/storage/'+brand.brand_image}style={{height:"20px"}}  alt="" /></td>

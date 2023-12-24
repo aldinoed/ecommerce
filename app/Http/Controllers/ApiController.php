@@ -51,6 +51,13 @@ class ApiController extends Controller
         $users = User::all();
         return response()->json(['users' => $users]);
     }
+    public function specificBrand($brandId){
+        $brand = ProductBrand::where('brand_id', $brandId)->first();
+        if($brand){
+            return response()->json(['message' => 'Brand Data Not Found'], 404);
+        }
+        return response()->json(['brand' => $brand], 200);
+    }
     public function specificUser($email){
         $user = User::where('email', $email)->first();
         return response()->json(['user' => $user]);

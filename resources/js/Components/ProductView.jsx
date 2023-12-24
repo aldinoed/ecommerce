@@ -18,7 +18,6 @@ export default function ProductView({auth}){
             .then(res=>{
                 setProduct(res.data.product);
                 setMedia(res.data.media)
-                console.log(res.data)
                 })
             .catch(err=>console.log(`Error fetching data: ${err}`))
     }, [])

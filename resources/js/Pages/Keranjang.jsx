@@ -9,23 +9,60 @@ import TransactionHeader from "@/Components/TransactionHeader";
 import axios from "axios";
 
 export default function Keranjang({auth}) {
-    const [amount, setAmount] = React.useState(1);
-    const [carts, setCarts] = React.useState('');
-    const [product, setProduct] = React.useState('');
-    const addAmount = ()=> { setAmount(amount + 1) }
-    const reduceAmount = () => { if(amount > 1){ setAmount(amount - 1)} }
+    const [carts, setCarts] = useState([]);
+    const [product, setProduct] = useState([]);
+    
+    const [image, setImage] = useState([]);
+    let index = 0;
     
     useEffect(()=>{
         axios.get('/api/carts-data/'+auth.user.id)
-            .then(res => setCarts(res.data.carts))
-            .catch(err => console.log(err))
-    })
+        .then(res => {
+            setCarts(res.data.carts)
+        })
+        .catch(err => console.log(err))
+        
+    }, [])
+    useEffect(()=>{
+        const products = []
+        let images = []
+        let i = 0
+        async function getProduct(){
+            for(let item of carts){
+                try{
+                    const res = await axios.get(`/api/products-data/${item.product_id}`)
+                    
+                    if(res.status == 200){
+                        products.push(res.data.product)
+                        images.push(res.data.media)
+                    }else{
+                        throw err;
+                    }
+                }catch(err){
+                    err=>console.log(`Error fetching data: ${err}`);
+                }
+            }
+            setProduct(products);
+            setImage(images);
+        }
+        getProduct();
+        
+    }, [])
+    const addAmount = (ind) => {
+        if(carts[ind].quantity < product[ind].product_stock){
+            const newCarts = [...carts];
+            newCarts[ind] = {...newCarts[ind], quantity : newCarts[ind].quantity + 1 };
+            setCarts(newCarts);
+        }
+    }
     
-    // useEffect(()=>{
-    //     axios.get('/api/user-data/'+auth.user.email)
-    //         .then(res => console.log(res))
-    //         .catch(err => console.log(err))
-    // }, [])
+    const reduceAmount = (ind) => { 
+        if(carts[ind].quantity > 1){ 
+            const newCarts = [...carts];
+            newCarts[ind] = {...newCarts[ind], quantity : newCarts[ind].quantity - 1 };
+            setCarts(newCarts);
+        }
+    }
     return (
         <>
             <Head title="keranjang">
@@ -42,8 +79,9 @@ export default function Keranjang({auth}) {
                     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
                 />
             </Head>
+            {/* <div style={{maxHeight:"100vh ", overflow:"auto"}} > */}
             <TransactionHeader></TransactionHeader>
-            <div className="cartBody container pt-5">
+            <div className="cartBody container pt-5" >
                 <div className="row" style={{ marginTop: "4%" }}>
                     <h4 className="fw-bold ps-4">Keranjang</h4>
                 </div>
@@ -64,9 +102,9 @@ export default function Keranjang({auth}) {
                     </div>
                 </div>
                 <div className="row d-flex justify-content-between">
-                    <div className="col-md-8 pt-3">
-                        {Array.isArray(carts) && carts.map(cart => (
-                        <div key={cart.cart_id} className="card shadow border-delete bg-body-tertiary">
+                    <div className="col-md-8 pt-3 cart-list overflow-y-scroll">
+                        {Array.isArray(carts) && carts.map((cart, i) => (
+                        <div key={cart.cart_id} className="card shadow border-delete bg-body-tertiary mb-4" style={{minHeight: "500px"}}>
                             <div className="ps-3 pt-3">
                                 <input
                                     className="form-check-input"
@@ -74,11 +112,12 @@ export default function Keranjang({auth}) {
                                     value=""
                                     id="defaultCheck1"
                                 />
-                                &#160; {
-                                    axios.get('/api/products-data/'+cart.product_id)
-                                            .then(res => console.log(res))
-                                            .catch(err => console.log(err))
-                                    }
+                                &#160;&#160; 
+                                {product && product.length > 0 ? (product[i].brand_name
+                                ) : (<p className="placeholder-glow pe-3 inline">
+                                <span className="placeholder col-1"></span>
+                              </p>)
+                                }
                             </div>
                             <div className="card-body">
                                 <div className="product-canvas p-1 bg-body-secondary rounded">
@@ -86,38 +125,56 @@ export default function Keranjang({auth}) {
                                         <div className="col-2">
                                             <img
                                                 className="cart-thumb"
-                                                src="img/intel.jpeg"
+                                                src={`storage/${image[i].media_file}`}
+                                                // src=""
                                                 alt=""
                                             />
                                         </div>
                                         <div className="col-7">
                                             <div className="row fw-semibold pb-1">
-                                                Processor Intel Core i9
+                                            {product && product.length > 0 ? (product[i].product_name
+                                            ) : (<p className="placeholder-glow pe-3 inline">
+                                                <span className="placeholder col-1"></span>
+                                            </p>)
+                                            }
                                             </div>
                                             <div className="row fs-6">
-                                                Stok : 2005
+                                            Stok : {product && product.length > 0 ? (product[i].product_stock
+                                                    ) : (<p className="placeholder-glow pe-3 inline">
+                                                    <span className="placeholder col-1"></span>
+                                                </p>)
+                                            }
                                             </div>
-                                            <div className="row">Rp. 15000</div>
+                                            <div className="row">Rp. {product && product.length > 0 ? (`${product[i].product_price}.-`
+                                                    ) : (<p className="placeholder-glow pe-3 inline">
+                                                    <span className="placeholder col-1"></span>
+                                                </p>)}</div>
                                         </div>
                                         <div className="col-3 d-flex align-items-end pb-2">
                                             <span className="material-symbols-outlined tombol cart-button-hover ">
                                                 delete
                                             </span>
                                             &#160;&#160;&#160;&#160;&#160;
-                                            <span onClick={reduceAmount} className="material-symbols-outlined tombol cart-button-hover">
+                                            <span onClick={()=>{
+                                                reduceAmount(i)
+                                            }} className="material-symbols-outlined tombol cart-button-hover">
                                                 do_not_disturb_on
                                             </span>
                                             <span className="ms-4 me-4">
-                                                {amount}
+                                                <input type="hidden" value={cart.quantity} />
+                                                {cart.quantity}
                                             </span>
-                                            <span onClick={addAmount} className="material-symbols-outlined tombol cart-button-hover">
+                                            <span onClick={()=>{
+                                                addAmount(i)
+                                            }} className="material-symbols-outlined tombol cart-button-hover">
                                                 add_circle
                                             </span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>))}
+                        </div>
+                        ))}
                     </div>
                     <div className="col-md-4 p-3">
                         <div
@@ -162,6 +219,7 @@ export default function Keranjang({auth}) {
                     </div>
                 </div>
             </div>
+        {/* </div> */}
         </>
     );
 }

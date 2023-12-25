@@ -71,7 +71,7 @@ class ApiController extends Controller
         }
         if($image){
             $image->delete();
-       }
+        }
         $product->delete();
         return response()->json(['message' => 'Successfully delete category'], 200);
     }

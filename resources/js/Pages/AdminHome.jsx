@@ -12,8 +12,6 @@ import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 // import MainNav from "../Components/MainNav";
 
 import { Link, Head, useForm } from "@inertiajs/react";
-// import Categories from "@/Componensts/Categories";
-// import { Switch } from "@headlessui/react";
 
 export default function AdminHome({auth}){
       const {data, setData, post, processing, errors, reset} = useForm({
@@ -115,7 +113,7 @@ export default function AdminHome({auth}){
                                     </div>
                               </div> */}
                               <div className="btn fitur flex-column d-flex justify-content-evenly align-items-start" style={{paddingRight: "105px",width:"100%"}}>
-                                    <div className="ps-5">
+                                    <div className="ps-5 ms-2">
                                           <span className="text-white  material-symbols-outlined">
                                                 home
                                           </span>

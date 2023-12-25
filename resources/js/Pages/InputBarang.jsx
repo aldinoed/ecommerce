@@ -3,8 +3,7 @@ import "../../css/app.css";
 import "../../css/my.css";
 import "../../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js";
 
-// import MainNav from "../Components/MainNav";
-// import Dropdown from "@/Components/Dropdown";
+import Swal from "sweetalert2";
 import { Link, Head } from "@inertiajs/react";
 import { useState, useEffect } from "react";
 import useCsrfToken from "../Components/useCsrfToken";
@@ -42,7 +41,6 @@ export default function FormInputProduk(){
     })
 
     const uploadImage = async()=>{
-        // console.log(fileImage)
         console.log(amount)
         const formData = new FormData();
         formData.append('name', name);
@@ -55,8 +53,18 @@ export default function FormInputProduk(){
         formData.append('amount',amount);
         let responce = await axios.post('/api/input-produk', formData, {headers:{'Content-Type':'multipart/form-data'}})
 
-        if(responce){
-            alert('Berhasil input data produk')
+        if(responce.status == 200){
+            Swal.fire({
+                title : "Berhasil!",
+                text : "Berhasil Input Data Produk",
+                icon : "success"
+            })
+        }else{
+            Swal.fire({
+                title : "Error!",
+                text : res.data.message,
+                icon : "error"
+            })
         }
     }
 

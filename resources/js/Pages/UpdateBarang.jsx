@@ -5,7 +5,7 @@ import "../../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js";
 
 // import MainNav from "../Components/MainNav";
 // import Dropdown from "@/Components/Dropdown";
-import { Link, Head } from "@inertiajs/react";
+
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import useCsrfToken from "../Components/useCsrfToken";
@@ -13,12 +13,13 @@ import useCsrfToken from "../Components/useCsrfToken";
 export default function FormInputProduk(){
     const [product, setProduct] = useState('');
     const [media, setMedia] = useState('');
-    const {productName} = useParams();
+    const {productId} = useParams();
     useEffect(()=>{
-        axios.get('/api/products-data/'+productName+'/update')
-            .then(res=>{setProduct(res.data.product);
+        axios.get('/api/products-data/'+productId)
+            .then(res=>{
+                console.log(res)
+                setProduct(res.data.product);
                 setMedia(res.data.media)
-                console.log(res.data)
                 })
             .catch(err=>console.log(`Error fetching data: ${err}`))
     }, [])
@@ -27,7 +28,7 @@ export default function FormInputProduk(){
     const[name, setName] = useState('')
     const[desc, setDesc] = useState('')
     const[fileImage, setFileImage] = useState('')
-    const[selectedCategory, setSelectedCategory] = useState('')
+    const[selectedCategory, setSelectedCategory] = useState()
     const[selectedBrands, setSelectedBrands] = useState('')
     const[amount, setAmount] = useState('')
     const[price, setPrice] = useState('')
@@ -77,7 +78,6 @@ export default function FormInputProduk(){
     }
     return (
         <>
-        <Head title="Input Produk"><meta name="csrf-token" content={token} /></Head>
         <div className="p-3 mb-2  mt-5" >
             <div className="align-self-center ">
                 <form style={{maxHeight: "80vh !important", maxWidth: "60%"}} className="p-4 m-auto shadow rounded bg-white " method="POST" action="/input-produk" encType="multipart/form-data" onSubmit={handleSubmit}>
@@ -88,7 +88,7 @@ export default function FormInputProduk(){
                         <div className="col-md">
                             <div>
                                 <label htmlFor=" floatingInputGrid">Nama Barang</label>
-                                <input type="text" className="form-control" id="floatingInputGrid" name="name" placeholder="" onChange={(e)=>setName(e.target.value)}/>
+                                <input type="text" className="form-control" id="floatingInputGrid" name="name" placeholder="" value={product.product_name} onChange={(e)=>setName(e.target.value)}/>
                             </div>
                         </div>
                     </div>
@@ -96,7 +96,7 @@ export default function FormInputProduk(){
                             <div className="col-md">
                                 <div>
                                     <label htmlFor=" floatingInputGrid">Deskripsi Produk</label>
-                                    <textarea type="text" className="form-control" id="floatingInputGrid" name="desc" placeholder="" onChange={(e)=>setDesc(e.target.value)}/>
+                                    <textarea type="text" className="form-control" id="floatingInputGrid" name="desc" placeholder="" value={product.description} onChange={(e)=>setDesc(e.target.value)}/>
                                 </div>
                             </div>
                         </div>
@@ -132,11 +132,15 @@ export default function FormInputProduk(){
                         </div>
                         <div className="mt-3">
                             <label htmlFor=" floatingInputGrid">Jumlah</label>
-                            <input className="form-control" type="number" placeholder="" aria-label="" name="amount" onChange={(e)=>setAmount(e.target.value)}/>
+                            <input className="form-control" type="number" placeholder="" aria-label="" name="amount" value={product.product_stock} onChange={(e)=>setAmount(e.target.value)}/>
+                        </div>
+                        <div className="mt-3">
+                            <label htmlFor=" floatingInputGrid">Berat Produk</label>
+                            <input className="form-control" name="weight" type="number" placeholder="" aria-label="" value={product.product_weight} onChange={(e)=>setPrice(e.target.value)}/>
                         </div>
                         <div className="mt-3">
                             <label htmlFor=" floatingInputGrid">Harga Produk</label>
-                            <input className="form-control" name="price" type="number" placeholder="" aria-label="" onChange={(e)=>setPrice(e.target.value)}/>
+                            <input className="form-control" name="price" type="number" placeholder="" aria-label="" value={product.product_price} onChange={(e)=>setPrice(e.target.value)}/>
                         </div>
                         <div className="mb-3 mt-3">
                             <label htmlFor="formFileMultiple" className="form-label text-secondary">Masukkan Foto Produk</label>

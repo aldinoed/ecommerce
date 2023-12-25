@@ -14,7 +14,6 @@ use Illuminate\Support\Str;
 
 class AdminController extends Controller
 {
-    //
     public function userMan(){
         return Inertia::render('InputBarang');
     }
@@ -29,6 +28,9 @@ class AdminController extends Controller
     }
     public function brandMan(){
         return Inertia::render('InputBrand');
+    }
+    public function updatePage(){
+        return Inertia::render('UpdatePage');
     }
 
     public function indexCat(){

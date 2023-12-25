@@ -101,10 +101,10 @@ export default function Keranjang({auth}) {
                         </label>
                     </div>
                 </div>
-                <div className="row d-flex justify-content-between">
-                    <div className="col-md-8 pt-3 cart-list overflow-y-scroll">
+                <div className="row d-flex justify-content-between" >
+                    <div className="col-md-8 pt-3 cart-list overflow-y-auto" style={{maxHeight : "70vh"}}>
                         {Array.isArray(carts) && carts.map((cart, i) => (
-                        <div key={cart.cart_id} className="card shadow border-delete bg-body-tertiary mb-4" style={{minHeight: "500px"}}>
+                        <div key={cart.cart_id} className="card shadow border-delete bg-body-tertiary mb-4">
                             <div className="ps-3 pt-3">
                                 <input
                                     className="form-check-input"

@@ -34,7 +34,7 @@ use Illuminate\Session\Middleware\AuthenticateSession;
 // });
 
 Route::get('/admin/produk', function () {return Inertia::render('AdminHome');});
-Route::get('/admin/produk/{proId}/edit', function () {return Inertia::render('UpdateBarang');});
+Route::get('/admin/produk/{productId}/edit', [AdminController::class, 'updatePage']);
 Route::get('/admin/brand', [AdminController::class,'indexBrand']);
 Route::get('/admin/input-produk', [AdminController::class,'produkMan']);
 Route::get('/api/products-data', [ApiController::class,'products']);
@@ -52,6 +52,7 @@ Route::delete('/api/delete-product/{proId}', [ApiController::class,'destroyPro']
 Route::delete('/api/delete-category/{catId}', [ApiController::class,'destroyCat']);
 Route::get('/api/carts-data/{userId}', [ApiController::class,'carts']);
 Route::get('/api/users-data', [ApiController::class,'users']);
+Route::get('/api/products-data/{productId}', [ApiController::class, 'specificProduct']);
 Route::get('/api/user-data/{email}', [ApiController::class,'specificUser']);
 Route::delete('/api/delete-user/{userId}', [ApiController::class,'destroyUser']);
 Route::delete('/api/delete-brand/{brandId}', [ApiController::class,'destroyBrand']);
@@ -70,8 +71,6 @@ Route::get('/', function (){
         'masuk' => Route::has('masuk')
     ]);
 });
-// [AuthController::class,'daftar']);
-// Route::post('/daftar', [RegisteredUserController::class,'store']);
 Route::get('/sanctum/csrf-token', function(){
     return response()->json(['token' => csrf_token()]);
 });
@@ -79,7 +78,6 @@ Route::get('/sanctum/csrf-token', function(){
 Route::get('/user/{userFullname}', [HomeController::class, 'user']);
 Route::get('/search/{params}', [HomeController::class, 'home']);
 Route::get('/product/{productId}', [HomeController::class, 'specificProduct']);
-Route::get('/api/products-data/{productId}', [ApiController::class, 'specificProduct']);
 Route::get('/keranjang', function () {
     return Inertia::render('Keranjang' );
 })->middleware('auth');

@@ -41,7 +41,6 @@ export default function FormInputProduk(){
     })
 
     const uploadImage = async()=>{
-        console.log(amount)
         const formData = new FormData();
         formData.append('name', name);
         formData.append('desc', desc);

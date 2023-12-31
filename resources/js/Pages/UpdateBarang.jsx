@@ -1,11 +1,9 @@
 import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "../../css/app.css";
 import "../../css/my.css";
-import "../../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js";
+import "../../../node_modules/bootstrap/dist/js/bootstrap.min.js";
 
-// import MainNav from "../Components/MainNav";
-// import Dropdown from "@/Components/Dropdown";
-
+import Swal from "sweetalert2";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import useCsrfToken from "../Components/useCsrfToken";
@@ -17,58 +15,103 @@ export default function FormInputProduk(){
     useEffect(()=>{
         axios.get('/api/products-data/'+productId)
             .then(res=>{
-                console.log(res)
                 setProduct(res.data.product);
                 setMedia(res.data.media)
                 })
             .catch(err=>console.log(`Error fetching data: ${err}`))
     }, [])
-    // console.log(productName)
+
+    
     const {token} = useCsrfToken();
-    const[name, setName] = useState('')
-    const[desc, setDesc] = useState('')
+    const[name, setName] = useState('');
+    const[desc, setDesc] = useState('');
     const[fileImage, setFileImage] = useState('')
-    const[selectedCategory, setSelectedCategory] = useState()
+    const[selectedCategory, setSelectedCategory] = useState('')
     const[selectedBrands, setSelectedBrands] = useState('')
     const[amount, setAmount] = useState('')
-    const[price, setPrice] = useState('')
-
+    const[weight, setWeight] = useState('')
+    const[price, setPrice] = useState('');
+    const [category, setCategory] = useState('');
+    
+    const [brands, setBrands] = useState([])
     const [cats, setCats] = useState([])
+    
     useEffect(()=>{
         axios.get('/api/categories-data')
-            .then(res=>{
-                setCats(res.data.categories)})
-            .catch(error=>{
-                console.log('Error fetching data: ', error)
-            })
+        .then(res=>{
+            let takenItem = [];
+            for(let item of res.data.categories){
+                if(item.category_id == product.category_id){ 
+                    setCategory(item.category_name);
+                    setSelectedCategory(item.category_id);
+                    continue;
+                }else{
+                    takenItem.push(item);
+                }
+            }
+            setCats(takenItem)
+        })
+        .catch(error=>{
+            console.log('Error fetching data: ', error)
+        })
+    }, [])
+    
+    useEffect(()=>{
+        let takenItem = [];
+        axios.get('/api/brands-data')
+        .then(res=>{
+            for(let item of res.data.brands){
+                if(item.brand_name == product.brand_name){ 
+                    setSelectedBrands(item.brand_id)
+                    continue;
+                }else{
+                    takenItem.push(item)
+                }
+            }
+            setBrands(takenItem);
+            
+        })
+        .catch(error=>{
+            alert('Error fetching data: ', error)
+        })
     }, [])
 
-    const [brands, setBrands] = useState([])
     useEffect(()=>{
-        axios.get('/api/brands-data')
-            .then(res=>{
-                setBrands(res.data.brands)
-            })
-            .catch(error=>{
-                alert('Error fetching data: ', error)
-            })
+        if(name == '' && desc == '' && amount == '' && price == '' && weight == '' && product){
+            console.log(product);
+            setName(product.product_name);
+            setDesc(product.description);
+            setAmount(product.product_stock);
+            setPrice(product.product_price);
+            setWeight(product.product_weight);
+        }
     })
 
     const uploadImage = async()=>{
-        // console.log(fileImage)
-        console.log(amount)
         const formData = new FormData();
+        formData.append('productId', productId)
         formData.append('name', name);
         formData.append('desc', desc);
         formData.append('cat', selectedCategory);
         formData.append('brand', selectedBrands);
         formData.append('image',fileImage);
         formData.append('price',price);
+        formData.append('weight',weight);
         formData.append('amount',amount);
-        let responce = await axios.post('/api/input-produk', formData, {headers:{'Content-Type':'multipart/form-data'}})
+        let res = await axios.post('/api/update-produk', formData, {headers:{'Content-Type':'multipart/form-data'}})
 
-        if(responce){
-            alert('Berhasil input data produk')
+        if(res.status == 200){
+            Swal.fire({
+                title : "Berhasil!",
+                text : "Berhasil Update Data Produk",
+                icon : "success"
+            })
+        }else if(res.status != 200){
+            Swal.fire({
+                title : "Error!",
+                text : res,
+                icon : 'error'
+            })
         }
     }
 
@@ -88,7 +131,7 @@ export default function FormInputProduk(){
                         <div className="col-md">
                             <div>
                                 <label htmlFor=" floatingInputGrid">Nama Barang</label>
-                                <input type="text" className="form-control" id="floatingInputGrid" name="name" placeholder="" value={product.product_name} onChange={(e)=>setName(e.target.value)}/>
+                                <input type="text" className="form-control" id="floatingInputGrid" name="name" placeholder="" value={name} onChange={(e)=>setName(e.target.value)}/>
                             </div>
                         </div>
                     </div>
@@ -96,7 +139,7 @@ export default function FormInputProduk(){
                             <div className="col-md">
                                 <div>
                                     <label htmlFor=" floatingInputGrid">Deskripsi Produk</label>
-                                    <textarea type="text" className="form-control" id="floatingInputGrid" name="desc" placeholder="" value={product.description} onChange={(e)=>setDesc(e.target.value)}/>
+                                    <textarea type="text" className="form-control" id="floatingInputGrid" name="desc" placeholder="" value={desc} onChange={(e)=>setDesc(e.target.value)}/>
                                 </div>
                             </div>
                         </div>
@@ -104,9 +147,14 @@ export default function FormInputProduk(){
                         <div className="col-sm-5">
                             <label htmlFor=" floatingInputGrid">Kategori Produk</label>
                             <div className="">
-                                <select className="form-select form-select" aria-label="Large select example" name="cat" value={selectedCategory}
+                                <select className="form-select form-select" aria-label="Large select example" name="cat"  value={selectedCategory}
                                 onChange={(e) => setSelectedCategory(e.target.value)}>
-                                    <option selected>Select</option>
+                                    {
+                                        <option value={product.category_id} selected>
+                                        {category}
+                                        </option> || 
+                                        <option>Select</option>
+                                    }
                                     {cats.map((category) => (
                                     <option key={category.category_id} value={category.category_id}>
                                         {category.category_name}
@@ -120,9 +168,14 @@ export default function FormInputProduk(){
                             <div className="">
                             <select className="form-select form-select" aria-label="Large select example" name="brand" value={selectedBrands}
                                 onChange={(e) => setSelectedBrands(e.target.value)}>
-                                    <option selected>Select</option>
+                                    {
+                                        <option value={product.brand_id} selected>
+                                        {product.brand_name}
+                                        </option> || 
+                                        <option>Select</option>
+                                    }
                                     {brands.map((brand) => (
-                                    <option key={brand.brand_id} value={brand.brand_id}>
+                                    <option key={brand.brand_id} value={brand.brand_id} disabled={brand.brand_id == product.brand_id}>
                                         {brand.brand_name}
                                     </option>
                                     ))}
@@ -132,18 +185,22 @@ export default function FormInputProduk(){
                         </div>
                         <div className="mt-3">
                             <label htmlFor=" floatingInputGrid">Jumlah</label>
-                            <input className="form-control" type="number" placeholder="" aria-label="" name="amount" value={product.product_stock} onChange={(e)=>setAmount(e.target.value)}/>
+                            <input className="form-control" type="number" placeholder="" aria-label="" name="amount" value={amount} onChange={(e)=>setAmount(e.target.value)}/>
                         </div>
                         <div className="mt-3">
                             <label htmlFor=" floatingInputGrid">Berat Produk</label>
-                            <input className="form-control" name="weight" type="number" placeholder="" aria-label="" value={product.product_weight} onChange={(e)=>setPrice(e.target.value)}/>
+                            <input className="form-control" name="weight" type="number" placeholder="" aria-label="" value={weight} onChange={(e)=>setPrice(e.target.value)}/>
                         </div>
                         <div className="mt-3">
                             <label htmlFor=" floatingInputGrid">Harga Produk</label>
-                            <input className="form-control" name="price" type="number" placeholder="" aria-label="" value={product.product_price} onChange={(e)=>setPrice(e.target.value)}/>
+                            <input className="form-control" name="price" type="number" placeholder="" aria-label="" value={price} onChange={(e)=>setPrice(e.target.value)}/>
                         </div>
                         <div className="mb-3 mt-3">
-                            <label htmlFor="formFileMultiple" className="form-label text-secondary">Masukkan Foto Produk</label>
+                        <p className="text-secondary">Gambar produk sebelumnya: </p>
+                            <img className="rounded image-fluid" src={`http://127.0.0.1:8001/storage/${media.media_file}`} alt=""/>
+                        </div>
+                        <div className="mb-3 mt-3">
+                            <label htmlFor="formFileMultiple" className="form-label text-secondary">Masukkan Gambar Produk</label>
                             <input className="form-control" type="file" id="formFileMultiple" multiple name="image" onChange={(e)=>setFileImage(e.target.files[0])}/>
                         </div>
                    </div>

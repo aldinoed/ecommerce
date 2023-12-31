@@ -13,6 +13,7 @@ use App\Models\ProductMedia;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Cart;
+use Exception;
 
 class ApiController extends Controller
 {
@@ -75,7 +76,6 @@ class ApiController extends Controller
         $product->delete();
         return response()->json(['message' => 'Successfully delete category'], 200);
     }
-    
     public function destroyBrand($brandId){
         $brand = ProductBrand::where('brand_id', $brandId);
 
@@ -104,7 +104,33 @@ class ApiController extends Controller
         $user->delete();
         return response()->json(['message' => 'Successfully delete user'], 200);
     }
-
+    public function updateProduct(Request $request){
+        $request->validate([
+            'name' =>'required',
+            'desc' =>'required',
+            'cat' =>'required',
+            'brand' =>'required',
+            'weight' =>'required',
+            'amount' =>'required',
+            'price' =>'required',
+        ]);
+        try{
+            Product::where('product_id', $request->productId)->update(
+                [
+                    'product_name' => $request->name,
+                    'description' => $request->desc,
+                    'category_id' => $request->cat,
+                    'brand_id' => $request->brand,
+                    'product_weight' => $request->weight,
+                    'product_stock' => $request->amount,
+                    'product_price' => $request->price
+                ]
+            );
+            return response()->json(['message', 'Update Product Success'], 200);
+       }catch(Exception $err){
+            return response()->json(['message',  $err], 400);
+       }
+    }
     public function storeBrand(Request $request){
         try{
             $imageName = Str::random(32).".".$request->image->getClientOriginalExtension();
@@ -121,7 +147,7 @@ class ApiController extends Controller
             ]);
             Storage::disk('public')->put($imageName, file_get_contents($request->image));
             return response()->json(['message' => 'Brand created successfully'], 200);
-        }catch(\Exception $e){
+        }catch(Exception $e){
             return response()->json(['message' => 'Something went wrong'], 500);
         }
         

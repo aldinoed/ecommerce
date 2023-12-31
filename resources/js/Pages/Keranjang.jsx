@@ -42,6 +42,7 @@ export default function Keranjang({auth}) {
                     err=>console.log(`Error fetching data: ${err}`);
                 }
             }
+            
             setProduct(products);
             setImage(images);
         }
@@ -79,7 +80,6 @@ export default function Keranjang({auth}) {
                     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
                 />
             </Head>
-            {/* <div style={{maxHeight:"100vh ", overflow:"auto"}} > */}
             <TransactionHeader></TransactionHeader>
             <div className="cartBody container pt-5" >
                 <div className="row" style={{ marginTop: "4%" }}>

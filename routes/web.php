@@ -35,6 +35,7 @@ use Illuminate\Session\Middleware\AuthenticateSession;
 
 Route::get('/admin/produk', function () {return Inertia::render('AdminHome');});
 Route::get('/admin/produk/{productId}/edit', [AdminController::class, 'updatePage']);
+Route::post('/api/update-produk', [ApiController::class, 'updateProduct']);
 Route::get('/admin/brand', [AdminController::class,'indexBrand']);
 Route::get('/admin/input-produk', [AdminController::class,'produkMan']);
 Route::get('/api/products-data', [ApiController::class,'products']);

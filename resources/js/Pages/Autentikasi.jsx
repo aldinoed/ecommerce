@@ -35,7 +35,7 @@ export default function Autentikasi() {
                         style={{ width: "57%" }}
                     >
                         <Routes>
-                            <Route path="/masuk" element={<h2 className="text-center mb-5">Masuk</h2>}/>
+                            <Route path="/masuk" element={<h2 className="text-center mb-3">Masuk</h2>}/>
                             <Route path="/daftar" element={<h2 className="text-center">Daftar</h2>}/>
                         </Routes>
                         <Routes>

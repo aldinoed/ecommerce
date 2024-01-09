@@ -34,7 +34,7 @@ class AuthenticatedSessionController extends Controller
         // $request->authenticate();
         if(Auth::attempt($credentials)){
             $request->session()->regenerate();
-            return redirect()->intended(RouteServiceProvider::HOME);
+            return redirect()->intended('/')->with(['user'=> $request->email]);
         }
         return redirect('/masuk');
     }

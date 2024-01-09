@@ -189,7 +189,7 @@ class ApiController extends Controller
             ]);
             Storage::disk('public')->put($imageName, file_get_contents($request->image));
             return response()->json(['message' => 'Product created successfully'], 200);
-        }catch(\Exception $e){
+        }catch(Exception $e){
             return response()->json(['message' => 'Something went wrong'.$e->getMessage()], 500);
         }
     }
@@ -226,7 +226,7 @@ class ApiController extends Controller
             ]);
             Storage::disk('public')->put($imageName, file_get_contents($request->image));
             return response()->json(['message' => 'Product created successfully'], 200);
-        }catch(\Exception $e){
+        }catch(Exception $e){
             return response()->json(['message' => 'Something went wrong'.$e->getMessage()], 500);
         }
     }

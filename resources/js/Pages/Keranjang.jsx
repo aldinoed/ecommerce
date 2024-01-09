@@ -11,6 +11,7 @@ import axios from "axios";
 export default function Keranjang({auth}) {
     const [carts, setCarts] = useState([]);
     const [product, setProduct] = useState([]);
+    const [displayStock, setDisplayStock] = useState([])
     
     const [image, setImage] = useState([]);
     let index = 0;
@@ -49,6 +50,16 @@ export default function Keranjang({auth}) {
         getProduct();
         
     }, [])
+
+    useEffect(() =>{
+        let stocks=[]
+        for(let item  of product){
+            stocks.push(item.product_stock);
+        }
+        setDisplayStock(stocks)
+        console.log(displayStock)
+    },[product])
+
     const addAmount = (ind) => {
         if(carts[ind].quantity < product[ind].product_stock){
             const newCarts = [...carts];
@@ -113,8 +124,7 @@ export default function Keranjang({auth}) {
                                     id="defaultCheck1"
                                 />
                                 &#160;&#160; 
-                                {product && product.length > 0 ? (product[i].brand_name
-                                ) : (<p className="placeholder-glow pe-3 inline">
+                                {product && product.length > 0 ? product[i].brand_name : (<p className="placeholder-glow pe-3 inline">
                                 <span className="placeholder col-1"></span>
                               </p>)
                                 }
@@ -125,8 +135,8 @@ export default function Keranjang({auth}) {
                                         <div className="col-2">
                                             <img
                                                 className="cart-thumb"
-                                                src={`storage/${image[i].media_file}`}
-                                                // src=""
+                                                // src={`storage/${image[i].media_file}`}
+                                                src=""
                                                 alt=""
                                             />
                                         </div>
@@ -139,7 +149,7 @@ export default function Keranjang({auth}) {
                                             }
                                             </div>
                                             <div className="row fs-6">
-                                            Stok : {product && product.length > 0 ? (product[i].product_stock
+                                            Stok : {product && product.length > 0 ? (displayStock[i]
                                                     ) : (<p className="placeholder-glow pe-3 inline">
                                                     <span className="placeholder col-1"></span>
                                                 </p>)

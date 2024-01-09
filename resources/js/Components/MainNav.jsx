@@ -9,10 +9,9 @@ import useCsrfToken from "./useCsrfToken";
 
 import { Link, Head } from "@inertiajs/react";
 
-export default function MainNav(props) {
+export default function MainNav(user) {
     const {token} = useCsrfToken();
     const[search, setSearch] = useState('')
-    console.log(props)
     // const { url } = usePage();
     // const handleSubmit = (e) => {
     //     e.preventDefault();
@@ -28,38 +27,16 @@ export default function MainNav(props) {
                     </div>
                     <div className="col-1">
                         <div className="row">
-                            <button
-                                className="btn"
-                                type="button"
-                                data-bs-toggle="collapse"
-                                data-bs-target=".multi-collapse"
-                                aria-expanded="false"
-                                aria-controls="multiCollapseExample1 multiCollapseExample2"
-                            >
-                                Kategori
+                        <div className="dropdown col-2 ">
+                            <button className="btn bg-white d-flex align-items-center" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Kategori
                             </button>
-                            <div className="row z-3">
-                                <div className="col">
-                                    <div
-                                        className="collapse multi-collapse"
-                                        id="multiCollapseExample1"
-                                    >
-                                        <div className="card card-body">
-                                            Halo
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col">
-                                    <div
-                                        className="collapse multi-collapse"
-                                        id="multiCollapseExample2"
-                                    >
-                                        <div className="card card-body">
-                                            Yoi
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <ul className="dropdown-menu">
+                                <li><a className="dropdown-item" href="#">Dashboard</a></li>
+                                <li><a className="dropdown-item" href="#">Pembelian</a></li>
+                                <li><a className="dropdown-item" href="#">re</a></li>
+                            </ul>
+                        </div>
                         </div>
                     </div>
                     <div className="col-7 ">
@@ -104,11 +81,16 @@ export default function MainNav(props) {
                             </svg>
                         </a>
                     </div>
-                    <div className="col-2 d-flex justify-content-evenly">                
-                        <div className="btn border bg-white"><a href={route('masuk')} className="text-black">Masuk</a></div>
-                        <div className="btn bg-primary"><a href={route('daftar')} className="text-white">Daftar</a></div>
-                    </div>
-                    {/* <h2>{props.auth.user}</h2> */}
+                        {user.user ? (
+                            <div className="col-2">
+                                <a href="/user/dashboard" className=" text-black user-dashboard-button d-flex justify-content-center rounded-3 align-items-center">
+                                    <span className="material-symbols-outlined me-2">account_circle</span> {user.user}</a>
+                            </div>
+                        ) : (
+                        <div className="col-2 d-flex justify-content-evenly">
+                            <div className="btn border bg-white"><a href={route('masuk')} className="text-black">Masuk</a></div>
+                            <div className="btn bg-primary"><a href={route('daftar')} className="text-white">Daftar</a></div>
+                        </div>)}
                 </div>
             </div>
         </>

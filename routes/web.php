@@ -11,6 +11,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserDashboardController;
 use Illuminate\Session\Middleware\AuthenticateSession;
 
 /*
@@ -58,6 +59,8 @@ Route::get('/api/user-data/{email}', [ApiController::class,'specificUser']);
 Route::delete('/api/delete-user/{userId}', [ApiController::class,'destroyUser']);
 Route::delete('/api/delete-brand/{brandId}', [ApiController::class,'destroyBrand']);
 
+Route::get('/user/dashboard', [UserDashboardController::class, 'indexUserData'])->middleware('auth');
+Route::get('/user/dashboard/alamat', [UserDashboardController::class, 'indexUserAddress'])->middleware('auth');
 // Route::get('/dashboard', function () {
 //     return Inertia::render('Welcome', [
 //         'canLogin' => Route::has('login'),
@@ -67,9 +70,16 @@ Route::delete('/api/delete-brand/{brandId}', [ApiController::class,'destroyBrand
 // Route::get('/masuk', [AuthController::class, 'login']);
 // Route::post('/masuk', [AuthenticatedSessionController::class,'store']);
 Route::get('/', function (){
+    if(auth()->check()){
+        $user = auth()->user();
+    }else{
+        $user = null;
+    }
+    $user = session('user');
     return Inertia::render('Home', [
         'daftar' => Route::has('daftar'), 
-        'masuk' => Route::has('masuk')
+        'masuk' => Route::has('masuk'),
+        'user' => $user
     ]);
 });
 Route::get('/sanctum/csrf-token', function(){

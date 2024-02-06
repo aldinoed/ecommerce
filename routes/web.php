@@ -60,7 +60,7 @@ Route::delete('/api/delete-user/{userId}', [ApiController::class,'destroyUser'])
 Route::delete('/api/delete-brand/{brandId}', [ApiController::class,'destroyBrand']);
 
 Route::get('/user/dashboard', [UserDashboardController::class, 'indexUserProfile'])->middleware('auth');
-Route::get('/user/transaksi', [UserDashboardController::class, 'indexUserTransaction'])->middleware('auth');
+Route::get('/user/transaksi', [UserDashboardController::class, 'indexUserProfile'])->middleware('auth');
 Route::get('/user/dashboard/alamat', [UserDashboardController::class, 'indexUserAddress'])->middleware('auth');
 // Route::get('/dashboard', function () {
 //     return Inertia::render('Welcome', [

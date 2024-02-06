@@ -10,7 +10,4 @@ class UserDashboardController extends Controller
     public function indexUserProfile(){
         return Inertia::render('UserDashboard');
     }
-    public function indexUserTransaction(){
-        return Inertia::render('UserDashboard');
-    }
 }

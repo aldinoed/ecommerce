@@ -23,7 +23,7 @@ export default function MainNav(user) {
             <div className="container-fluid bg-white border-bottom pb-4 pt-3 shadow fixed-top">
                 <div className="row d-flex align-items-center justify-content-evenly">
                     <div className="col-1 d-flex justify-content-center">
-                        <a href="/"><img src="img/icon.png" alt="" /></a>
+                        <a href="/"><img src="../img/icon.png" alt="" /></a>
                     </div>
                     <div className="col-1">
                         <div className="row">
@@ -49,7 +49,7 @@ export default function MainNav(user) {
                                     xmlns="http://www.w3.org/2000/svg"
                                     width="16"
                                     height="16"
-                                    fill="currentColor"
+                                    fill="white"
                                     className="bi bi-search"
                                     viewBox="0 0 16 16"
                                 >

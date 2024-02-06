@@ -17,7 +17,7 @@ export default function Home(user) {
             <Head title="Situs Toko Komputer Terlengkap & Termurah">
             <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
             </Head>
-            {user.auth.user !== null ? (<MainNav user={user.auth.user.fullname}></MainNav>) : (<MainNav></MainNav>)}
+            {user.auth.user !== null ? (<MainNav user={user.auth.user.username}></MainNav>) : (<MainNav></MainNav>)}
             
             <h1></h1>
             <div className="container-fluid pt-5 ">
